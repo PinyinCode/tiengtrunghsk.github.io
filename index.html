@@ -3373,7 +3373,18 @@ body.hide-floating .tiktok-bar { display: none !important; }
 <div class="desc" id="demoBannerDesc">Xem <b id="demoLimitText">100</b> câu đầu (HSK1-<span id="demoHskMaxText">3</span>). Nghe + Luyện viết giới hạn <b id="demoDailyText">200</b> lượt/ngày (còn lại: <b id="demoRemainingText">50</b> lượt). Đăng nhập để mở khóa toàn bộ!</div></div>
 <button class="demo-banner-btn" id="demoBannerBtn" onclick="showLoginModal()"><i class="fas fa-sign-in-alt"></i> <span id="demoBannerBtnText">Đăng nhập ngay</span></button>
 </div>
-<div class="expiry-banner" id="expiryBanner" style="display:none"></div>
+<div class="expiry-banner" id="expiryBanner" style="display:none">
+    <div class="expiry-banner-icon" id="expiryBannerIcon">
+        <i class="fas fa-hourglass-half"></i>
+    </div>
+    <div class="expiry-banner-text">
+        <div class="title" id="expiryBannerTitle">Tài khoản sắp hết hạn</div>
+        <div class="desc" id="expiryBannerDesc">Đang cập nhật...</div>
+    </div>
+    <button class="expiry-banner-btn" id="expiryContactBtn" type="button">
+        <i class="fas fa-gem"></i> Gia hạn ngay
+    </button>
+</div>
 <div class="mobile-view" id="mobileWrapper"><div class="no-data"><i class="fas fa-spinner fa-pulse"></i>Đang tải...</div></div>
 </div>
 </main>
