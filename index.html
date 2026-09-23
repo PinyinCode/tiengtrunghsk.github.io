@@ -277,6 +277,76 @@ body.show-practice .card-body{background:linear-gradient(135deg,var(--surface-2)
 }
 .ds-sub-btn.active i{color:#fff}
 
+/* ═══════════════════════════════════════════════════════════════
+   🔒 KHOÁ CHUYÊN NGÀNH — Demo/Trial chưa gia hạn
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Sub-button ngành bị khoá */
+.ds-sub-btn.locked {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(0.4);
+    padding-right: 1.6rem;
+}
+.ds-sub-btn.locked:hover {
+    transform: none;
+    background: var(--surface);
+    border-color: var(--border);
+}
+.ds-sub-btn.locked i:first-child {
+    color: var(--text-3) !important;
+}
+
+/* 🔒 icon khoá nhỏ ở góc phải trên của sub-button */
+.ds-sub-lock {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.58rem;
+    color: #dc2626;
+    background: rgba(220, 38, 38, 0.14);
+    padding: 2px 4px;
+    border-radius: 5px;
+    line-height: 1;
+    pointer-events: none;
+    box-shadow: 0 1px 3px rgba(220, 38, 38, 0.2);
+}
+[data-theme="dark"] .ds-sub-lock {
+    color: #fca5a5;
+    background: rgba(220, 38, 38, 0.3);
+}
+
+/* 🔒 khoá nhỏ cạnh chữ "Chuyên ngành" trên nút chính */
+.ds-main-lock {
+    font-size: 0.7rem;
+    color: #dc2626;
+    margin-left: 0.35rem;
+    padding: 2px 5px;
+    background: rgba(220, 38, 38, 0.12);
+    border-radius: 5px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+[data-theme="dark"] .ds-main-lock {
+    color: #fca5a5;
+    background: rgba(220, 38, 38, 0.28);
+}
+
+/* Nút "Chuyên ngành" chính khi có khoá → viền đỏ nhẹ */
+.ds-btn[data-dataset-group="chuyen-nganh"].has-lock {
+    border-color: rgba(220, 38, 38, 0.35);
+}
+.ds-btn[data-dataset-group="chuyen-nganh"].has-lock:hover {
+    border-color: #dc2626;
+    background: rgba(220, 38, 38, 0.06);
+}
+.ds-btn[data-dataset-group="chuyen-nganh"].has-lock.active {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    border-color: transparent;
+}
+
 /* ============================================================ */
 /* FLASHCARD UI */
 /* ============================================================ */
@@ -585,6 +655,91 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
 .pf-quick-nav{margin-top:.4rem;display:flex;align-items:center;gap:.5rem}
 .pf-quick-nav-label{font-size:clamp(.55rem,.72vw,.68rem);font-weight:700;color:var(--text-3);text-transform:uppercase;white-space:nowrap}
 .pf-quick-nav-select{flex:1;min-width:0;padding:clamp(.25rem,.5vh,.45rem) 2rem;border-radius:var(--radius-full);border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:clamp(.68rem,.85vw,.78rem);font-family:inherit;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path fill='%2394a3b8' d='M6 9L1 4h10z'/></svg>");background-repeat:no-repeat;background-position:right 12px center;background-size:10px}
+
+/* ============================================================ */
+/* 📚 DATASET SELECTOR trong Practice Full                       */
+/* ============================================================ */
+.pf-dataset-row {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-top: .45rem;
+    padding: .45rem .6rem;
+    background: linear-gradient(135deg,
+        rgba(99, 102, 241, 0.08),
+        rgba(139, 92, 246, 0.06));
+    border: 1.5px solid rgba(139, 92, 246, 0.25);
+    border-radius: 12px;
+    position: relative;
+    transition: .2s;
+}
+[data-theme="dark"] .pf-dataset-row {
+    background: linear-gradient(135deg,
+        rgba(99, 102, 241, 0.15),
+        rgba(139, 92, 246, 0.12));
+    border-color: rgba(165, 180, 252, 0.3);
+}
+.pf-dataset-row.has-locked-options {
+    border-color: rgba(139, 92, 246, 0.25);
+}
+.pf-dataset-label {
+    font-size: clamp(.6rem, .72vw, .68rem);
+    font-weight: 800;
+    color: #5b21b6;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    flex-shrink: 0;
+}
+[data-theme="dark"] .pf-dataset-label {
+    color: #c4b5fd;
+}
+.pf-dataset-label i {
+    color: #d946ef;
+    font-size: .9em;
+}
+.pf-dataset-select {
+    flex: 1;
+    min-width: 0;
+    padding: clamp(.32rem, .55vh, .45rem) 2rem clamp(.32rem, .55vh, .45rem) .75rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: clamp(.72rem, .85vw, .82rem);
+    font-weight: 700;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path fill='%2394a3b8' d='M6 9L1 4h10z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 10px;
+    transition: .15s;
+}
+.pf-dataset-select:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+.pf-dataset-select option.locked-opt {
+    color: #94a3b8;
+}
+@media (max-width: 500px) {
+    .pf-dataset-label {
+        font-size: .58rem;
+        gap: .2rem;
+    }
+    .pf-dataset-label i { display: none; }
+    .pf-dataset-select {
+        font-size: .7rem;
+        padding-left: .6rem;
+    }
+}
+
 .practice-full-body{flex:1 1 auto;min-height:0;overflow-y:auto;padding:clamp(.85rem,2vh,1.5rem) clamp(.75rem,2vw,1.25rem) calc(80px + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center;justify-content:flex-start;scrollbar-width:thin}
 .practice-full-content{width:100%;max-width:clamp(320px,60vw,700px);display:flex;flex-direction:column;gap:clamp(.65rem,1.5vh,1.25rem);margin-top:auto;margin-bottom:auto}
 .practice-full-vi{font-size:clamp(1.15rem,2.2vw,1.65rem);font-weight:600;color:var(--text);text-align:center;line-height:1.45;padding:clamp(.7rem,1.5vh,1.1rem) clamp(.6rem,1.5vw,.9rem);background:linear-gradient(135deg,var(--surface-2),rgba(37,99,235,.06));border-radius:16px;border-left:4px solid var(--primary)}
@@ -766,7 +921,6 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
     min-height:72px;
 }
 
-/* Nút cơ bản */
 .pf-nav-icon{
     width:clamp(42px,5vw,50px);
     height:clamp(42px,5vw,50px);
@@ -791,14 +945,12 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
     cursor:not-allowed;
 }
 
-/* ═══ NÚT CHÍNH (◀ ▶ 🔊) — TO, NỔI BẬT ═══ */
 .pf-nav-icon.main-nav{
     width:clamp(56px,7vw,68px);
     height:clamp(56px,7vw,68px);
     font-size:clamp(1.3rem,1.8vw,1.6rem);
     border-width:2px;
 }
-/* Nút ◀ (không primary, không speak) */
 .pf-nav-icon.main-nav:not(.primary):not(.speak){
     background:var(--surface);
     color:var(--text);
@@ -814,7 +966,6 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
 .pf-nav-icon.main-nav:not(.primary):not(.speak):active:not(:disabled){
     transform:scale(1.02);
 }
-/* Nút ▶ (primary) */
 .pf-nav-icon.main-nav.primary{
     background:linear-gradient(135deg,#4f46e5,#7c3aed);
     color:#fff;
@@ -830,7 +981,6 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
 .pf-nav-icon.main-nav.primary:active:not(:disabled){
     transform:scale(1.05);
 }
-/* Nút 🔊 (speak) — TO bằng ◀ ▶, style xanh dương */
 .pf-nav-icon.main-nav.speak{
     background:linear-gradient(135deg,#3b82f6,#2563eb);
     color:#fff;
@@ -860,7 +1010,6 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
     animation:stopPulse .8s ease-in-out infinite;
 }
 
-/* ═══ NÚT PHỤ (🎧) — NHỎ HƠN ═══ */
 .pf-nav-icon.mini-nav{
     width:clamp(44px,5vw,52px);
     height:clamp(44px,5vw,52px);
@@ -884,7 +1033,6 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
     box-shadow:0 6px 16px rgba(6,182,212,.4);
 }
 
-/* Nhóm nút phụ — ngăn cách bằng đường kẻ dọc */
 .practice-full-nav .mini-group{
     display:flex;
     gap:.35rem;
@@ -893,7 +1041,6 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
     border-left:1.5px solid var(--border);
 }
 
-/* Dark mode cho nút ◀ */
 [data-theme="dark"] .pf-nav-icon.main-nav:not(.primary):not(.speak){
     background:var(--surface-2);
     color:var(--text);
@@ -905,7 +1052,6 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
     color:#93c5fd;
 }
 
-/* Responsive */
 @media(max-width:768px){
     .practice-full-nav{
         gap:.5rem;
@@ -2908,6 +3054,11 @@ body.hide-floating .tiktok-bar { display: none !important; }
 <select id="pfSubjectFilter"><option value="">Tất cả chủ đề</option></select>
 </div>
 </div>
+<!-- ✅ DATASET SELECTOR trong Practice Full (1700 câu / Chuyên ngành) -->
+<div class="pf-dataset-row" id="pfDatasetRow">
+    <span class="pf-dataset-label"><i class="fas fa-layer-group"></i> Bộ dữ liệu</span>
+    <select class="pf-dataset-select" id="pfDatasetSelect"></select>
+</div>
 <div class="pf-quick-nav"><span class="pf-quick-nav-label">Câu:</span>
 <select class="pf-quick-nav-select" id="pfQuickNav"><option value="">-- Chọn câu --</option></select>
 </div>
@@ -3422,6 +3573,50 @@ var currentBtn = null;
 
 var displayState = { vi: true, pinyin: false, practice: false };
 
+/* ============================================================ */
+/* ✅ HELPER: TIER HIỆN TẠI CÓ ĐƯỢC MỞ CHUYÊN NGÀNH KHÔNG?       */
+/* ============================================================ */
+function canAccessChuyenNganh() {
+    return (typeof window.APP_TIER !== 'undefined' && window.APP_TIER === 'active');
+}
+
+/* ============================================================ */
+/* ✅ THÔNG BÁO KHOÁ CHUYÊN NGÀNH (DEMO/TRIAL CHƯA GIA HẠN)      */
+/* ============================================================ */
+function showChuyenNganhLockMessage() {
+    if (typeof currentUser === 'undefined' || !currentUser) {
+        // Chưa đăng nhập (demo)
+        if (confirm('🔒 Bộ dữ liệu Chuyên ngành\n\n' +
+                    'Bạn cần ĐĂNG NHẬP và GIA HẠN để mở khoá.\n\n' +
+                    'Đăng nhập ngay?')) {
+            if (typeof showLoginModal === 'function') showLoginModal();
+        }
+    } else {
+        // Đã đăng nhập nhưng chưa gia hạn (trial/expired)
+        if (confirm('🔒 Bộ dữ liệu Chuyên ngành\n\n' +
+                    'Chỉ tài khoản ĐÃ GIA HẠN mới mở được.\n\n' +
+                    'Gia hạn ngay?')) {
+            if (typeof openRenewalModal === 'function') openRenewalModal();
+        }
+    }
+}
+
+function showPracticeFullLockMessage() {
+    if (typeof currentUser === 'undefined' || !currentUser) {
+        if (confirm('🔒 Chế độ luyện tập Chuyên ngành\n\n' +
+                    'Bạn cần ĐĂNG NHẬP và GIA HẠN để mở khoá.\n\n' +
+                    'Đăng nhập ngay?')) {
+            if (typeof showLoginModal === 'function') showLoginModal();
+        }
+    } else {
+        if (confirm('🔒 Chế độ luyện tập Chuyên ngành\n\n' +
+                    'Chỉ tài khoản ĐÃ GIA HẠN mới mở được.\n\n' +
+                    'Gia hạn ngay?')) {
+            if (typeof openRenewalModal === 'function') openRenewalModal();
+        }
+    }
+}
+
 /* ============ DATASET SWITCHING (TỰ ĐỘNG) ============ */
 function initDatasetSelector() {
     if (typeof DATASET_REGISTRY === 'undefined' || !DATASET_REGISTRY) return;
@@ -3447,37 +3642,74 @@ function initDatasetSelector() {
         return;
     }
 
-    // Render sub-buttons
+    // ✅ Kiểm tra quyền: chỉ tier 'active' (đã gia hạn) mới mở được chuyên ngành.
+    // Admin tự động có tier = 'active' → full quyền.
+    var canAccess = canAccessChuyenNganh();
+
+    // Render sub-buttons (có khoá nhỏ nếu không đủ quyền)
     var subGrid = $('dsSubGrid');
     if (subGrid) {
         var subHtml = '';
         chuyenNganhKeys.forEach(function(id) {
             var ds = DATASET_REGISTRY[id];
-            subHtml += '<button class="ds-sub-btn" data-dataset="' + ds.id +
-                       '" style="--ds-color:' + (ds.color || '#64748b') + '" ' +
-                       'title="' + escapeHtml(ds.name) + ' (' + ds.count + ' câu)">' +
+            var lockIcon = canAccess
+                ? ''
+                : '<i class="fas fa-lock ds-sub-lock"></i>';
+            var lockCls = canAccess ? '' : ' locked';
+            subHtml += '<button class="ds-sub-btn' + lockCls + '" ' +
+                       'data-dataset="' + ds.id + '" ' +
+                       'data-locked="' + (canAccess ? '0' : '1') + '" ' +
+                       'style="--ds-color:' + (ds.color || '#64748b') + '" ' +
+                       'title="' + escapeHtml(ds.name) + ' (' + ds.count + ' câu)' +
+                       (canAccess ? '' : ' — Cần gia hạn để mở khoá') + '">' +
                        '<i class="fas ' + (ds.icon || 'fa-folder') + '"></i>' +
                        '<span>' + escapeHtml(ds.name) + '</span>' +
+                       lockIcon +
                        '</button>';
         });
         subGrid.innerHTML = subHtml;
     }
 
+    // ✅ Nút "Chuyên ngành" chính: vẫn mở dropdown bình thường,
+    // chỉ thêm icon 🔒 nhỏ cạnh chữ khi bị khoá
+    if (cnBtn) {
+        var oldLock = cnBtn.querySelector('.ds-main-lock');
+        if (oldLock) oldLock.remove();
+
+        if (!canAccess) {
+            var span = cnBtn.querySelector('span');
+            if (span) {
+                span.insertAdjacentHTML('afterend',
+                    '<i class="fas fa-lock ds-main-lock"></i>');
+            }
+            cnBtn.classList.add('has-lock');
+            cnBtn.title = 'Cần đăng nhập + gia hạn để mở khoá chuyên ngành';
+        } else {
+            cnBtn.classList.remove('has-lock');
+            cnBtn.title = 'Chọn chuyên ngành';
+        }
+    }
+
     // Bind nút "1700 câu"
     document.querySelectorAll('.ds-btn[data-dataset="tonghop"]').forEach(function(btn) {
+        if (btn.__boundDataset) return;
+        btn.__boundDataset = true;
         btn.addEventListener('click', function() {
             switchDataset('tonghop');
             var sub = $('dsSubWrap');
             if (sub) sub.style.display = 'none';
             document.querySelectorAll('.ds-btn').forEach(function(b) { b.classList.remove('active'); });
             btn.classList.add('active');
+            if (cnBtn) cnBtn.classList.remove('active');
         });
     });
 
-    // Bind nút "Chuyên ngành" (toggle)
-    if (cnBtn) {
+    // Bind nút "Chuyên ngành" — VẪN MỞ DROPDOWN BÌNH THƯỜNG
+    if (cnBtn && !cnBtn.__boundToggle) {
+        cnBtn.__boundToggle = true;
         cnBtn.addEventListener('click', function() {
             var sub = $('dsSubWrap');
+            if (!sub) return;
             var isOpen = sub.style.display !== 'none';
             if (isOpen) {
                 sub.style.display = 'none';
@@ -3492,9 +3724,17 @@ function initDatasetSelector() {
         });
     }
 
-    // Bind sub buttons
+    // Bind sub buttons (check khoá)
     document.querySelectorAll('.ds-sub-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
+        if (btn.__boundSub) return;
+        btn.__boundSub = true;
+        btn.addEventListener('click', function(e) {
+            if (this.dataset.locked === '1') {
+                e.preventDefault();
+                e.stopPropagation();
+                showChuyenNganhLockMessage();
+                return;
+            }
             var id = this.dataset.dataset;
             document.querySelectorAll('.ds-sub-btn').forEach(function(b) { b.classList.remove('active'); });
             this.classList.add('active');
@@ -3525,6 +3765,13 @@ function markCurrentDatasetActive() {
 
 function switchDataset(datasetId) {
     if (!DATASET_REGISTRY[datasetId]) return;
+
+    // ✅ Guard: chuyên ngành yêu cầu tier 'active'
+    if (datasetId !== 'tonghop' && !canAccessChuyenNganh()) {
+        showChuyenNganhLockMessage();
+        return;
+    }
+
     if (typeof window.__switchRawData === 'function') {
         window.__switchRawData(datasetId);
     }
@@ -4970,6 +5217,8 @@ var pfHintEnabled = false;
 window.openPracticeFull = function(stt, evt) {
     if (evt) { evt.stopPropagation(); if (evt.preventDefault) evt.preventDefault(); }
     if (isExpiredTier()) { showLimitMessage(); return; }
+    // ✅ Build dataset selector trước khi mở
+    if (typeof pfBuildDatasetSelect === 'function') pfBuildDatasetSelect();
     pfBuildFilterOptions();
     pfBuildQuickNav();
     var idx = -1;
@@ -5792,6 +6041,115 @@ function initPracticeFull() {
         }
     }
 }
+
+/* ============================================================ */
+/* 📚 DATASET SELECTOR trong Practice Full                       */
+/* ============================================================ */
+
+function pfBuildDatasetSelect() {
+    var sel = $('pfDatasetSelect');
+    var row = $('pfDatasetRow');
+    if (!sel || typeof DATASET_REGISTRY === 'undefined') return;
+
+    // ✅ Quyền: chỉ tier 'active' mới mở được chuyên ngành. Admin tự động full.
+    var canAccessAll = canAccessChuyenNganh();
+
+    var html = '';
+    var keys = Object.keys(DATASET_REGISTRY);
+    keys.forEach(function(id) {
+        var ds = DATASET_REGISTRY[id];
+        var isTonghop = (id === 'tonghop');
+        var isLocked = !isTonghop && !canAccessAll;
+
+        var label;
+        if (isTonghop) {
+            label = '📚 ' + (ds.count || 0) + ' câu — Tổng hợp VPCX';
+        } else {
+            label = (isLocked ? '🔒 ' : '🏭 ') + ds.name +
+                    ' (' + (ds.count || 0) + ' câu)';
+        }
+
+        html += '<option value="' + id + '"' +
+                (isLocked ? ' data-locked="1" class="locked-opt"' : '') + '>' +
+                escapeHtml(label) + '</option>';
+    });
+    sel.innerHTML = html;
+
+    var current = (typeof CURRENT_DATASET !== 'undefined') ? CURRENT_DATASET : 'tonghop';
+    sel.value = current;
+
+    // Nếu dataset hiện tại là chuyên ngành mà user không có quyền → về tonghop
+    if (current !== 'tonghop' && !canAccessAll) {
+        sel.value = 'tonghop';
+    }
+
+    if (row) {
+        var hasLock = !canAccessAll && keys.length > 1;
+        row.classList.toggle('has-locked-options', hasLock);
+    }
+}
+
+// Bind change event (delegation, an toàn khi select được rebuild)
+document.addEventListener('change', function(e) {
+    if (!e.target || e.target.id !== 'pfDatasetSelect') return;
+
+    var sel = e.target;
+    var val = sel.value;
+    var opt = sel.options[sel.selectedIndex];
+    var currentDataset = (typeof CURRENT_DATASET !== 'undefined') ? CURRENT_DATASET : 'tonghop';
+
+    // ✅ Option bị khoá → reset + thông báo
+    if (opt && opt.dataset.locked === '1') {
+        sel.value = currentDataset;
+        showPracticeFullLockMessage();
+        return;
+    }
+
+    // Guard lần 2 (double check)
+    if (val !== 'tonghop' && !canAccessChuyenNganh()) {
+        sel.value = currentDataset;
+        showPracticeFullLockMessage();
+        return;
+    }
+
+    // Chuyển dataset
+    var ok = (typeof window.__switchRawData === 'function')
+             ? window.__switchRawData(val)
+             : false;
+    if (!ok) {
+        sel.value = currentDataset;
+        return;
+    }
+
+    // Reset filter
+    state = { search:'', hsk:'', subject:'' };
+    if ($('pfSearchInput')) $('pfSearchInput').value = '';
+    if ($('pfHskFilter')) $('pfHskFilter').value = '';
+    if ($('pfSubjectFilter')) $('pfSubjectFilter').value = '';
+    if ($('searchInput')) $('searchInput').value = '';
+    if ($('hskFilter')) $('hskFilter').value = '';
+    if ($('subjectFilter')) $('subjectFilter').value = '';
+
+    // Rebuild options filter trong PF
+    if (typeof pfBuildFilterOptions === 'function') pfBuildFilterOptions();
+
+    // Apply lại filter + render lại list
+    if (typeof pfApplyFilter === 'function') {
+        pfApplyFilter();
+    } else if (typeof applyFilter === 'function') {
+        applyFilter();
+    }
+
+    // Nếu còn câu → load câu đầu
+    if (typeof filtered !== 'undefined' && filtered.length > 0) {
+        if (typeof loadPracticeFull === 'function') {
+            loadPracticeFull(filtered[0].stt);
+        }
+    }
+
+    // Refresh select để đồng bộ
+    pfBuildDatasetSelect();
+});
 
 var writerInstance = null;
 var currentWriteZh = '';
