@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-"""Template GIAO DIỆN HỌC: header, search, filter, card, practice full, writer."""
-
-
 def build_ui_css():
     return r"""
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -228,70 +224,91 @@ body.show-practice .card-body{background:linear-gradient(135deg,var(--surface-2)
     letter-spacing:.4px;margin-bottom:.5rem;
 }
 .ds-sub-label i{color:var(--amber);font-size:.8rem}
+
+/* ═══ SUB-BUTTONS dạng chữ nhật dẹp (pill ngang) ═══ */
 .ds-sub-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;
-}
-@media(min-width:600px){
-    .ds-sub-grid{grid-template-columns:repeat(5,1fr)}
-}
-@media(max-width:400px){
-    .ds-sub-grid{grid-template-columns:repeat(2,1fr)}
+    display:flex;
+    flex-wrap:wrap;
+    gap:.4rem;
 }
 .ds-sub-btn{
-    display:flex;flex-direction:column;align-items:center;gap:.3rem;
-    padding:.6rem .3rem;
-    border-radius:10px;
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    padding:.42rem .8rem;
+    border-radius:50px;
     border:1.5px solid var(--border);
     background:var(--surface);
     color:var(--text-2);
-    font-size:.7rem;font-weight:700;
-    font-family:inherit;cursor:pointer;
-    transition:.18s;text-align:center;
+    font-size:.74rem;
+    font-weight:700;
+    font-family:inherit;
+    cursor:pointer;
+    transition:all .18s ease;
+    text-align:left;
     position:relative;
+    line-height:1;
+    white-space:nowrap;
+    box-shadow:0 1px 2px rgba(15,23,42,.04);
 }
-.ds-sub-btn i{
-    font-size:1.15rem;
+.ds-sub-btn i:first-child{
+    font-size:.85rem;
     color:var(--ds-color, var(--primary));
     transition:.18s;
+    flex-shrink:0;
+}
+.ds-sub-btn span{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:180px;
 }
 .ds-sub-btn:hover{
     border-color:var(--ds-color, var(--primary));
-    background:rgba(37,99,235,.08);
-    transform:translateY(-2px);
+    background:color-mix(in srgb, var(--ds-color, #2563eb) 8%, var(--surface));
+    transform:translateY(-1px);
+    box-shadow:0 4px 10px rgba(15,23,42,.1);
 }
 .ds-sub-btn.active{
     background:var(--ds-color, var(--primary));
     color:#fff;
     border-color:var(--ds-color, var(--primary));
-    box-shadow:0 4px 12px rgba(15,23,42,.2);
+    box-shadow:0 4px 12px color-mix(in srgb, var(--ds-color, #2563eb) 40%, transparent);
 }
-.ds-sub-btn.active i{color:#fff}
+.ds-sub-btn.active i:first-child{
+    color:#fff;
+}
+@media(max-width:500px){
+    .ds-sub-btn{
+        padding:.38rem .7rem;
+        font-size:.7rem;
+    }
+    .ds-sub-btn i:first-child{ font-size:.8rem; }
+    .ds-sub-btn span{ max-width:140px; }
+}
 
 /* ═══════════════════════════════════════════════════════════════
    🔒 KHOÁ CHUYÊN NGÀNH — Demo/Trial chưa gia hạn
    ═══════════════════════════════════════════════════════════════ */
-
-/* Sub-button ngành bị khoá */
 .ds-sub-btn.locked {
     opacity: 0.6;
     cursor: not-allowed;
     filter: grayscale(0.4);
-    padding-right: 1.6rem;
+    padding-right: 1.7rem;
 }
 .ds-sub-btn.locked:hover {
     transform: none;
     background: var(--surface);
     border-color: var(--border);
+    box-shadow: 0 1px 2px rgba(15,23,42,.04);
 }
 .ds-sub-btn.locked i:first-child {
     color: var(--text-3) !important;
 }
-
-/* 🔒 icon khoá nhỏ ở góc phải trên của sub-button */
 .ds-sub-lock {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 50%;
+    right: 6px;
+    transform: translateY(-50%);
     font-size: 0.58rem;
     color: #dc2626;
     background: rgba(220, 38, 38, 0.14);
@@ -305,8 +322,6 @@ body.show-practice .card-body{background:linear-gradient(135deg,var(--surface-2)
     color: #fca5a5;
     background: rgba(220, 38, 38, 0.3);
 }
-
-/* 🔒 khoá nhỏ cạnh chữ "Chuyên ngành" trên nút chính */
 .ds-main-lock {
     font-size: 0.7rem;
     color: #dc2626;
@@ -323,8 +338,6 @@ body.show-practice .card-body{background:linear-gradient(135deg,var(--surface-2)
     color: #fca5a5;
     background: rgba(220, 38, 38, 0.28);
 }
-
-/* Nút "Chuyên ngành" chính khi có khoá → viền đỏ nhẹ */
 .ds-btn[data-dataset-group="chuyen-nganh"].has-lock {
     border-color: rgba(220, 38, 38, 0.35);
 }
@@ -742,9 +755,6 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
 @media(min-width:769px){.practice-full-input{font-size:clamp(1.35rem,2.6vw,1.6rem);padding:clamp(.85rem,1.8vh,1rem) clamp(1rem,2vw,1.3rem)}}
 @media(min-width:1400px){.practice-full-input{font-size:1.7rem;padding:1.05rem 1.4rem}}
 
-/* ============================================================ */
-/* Nút loa nhỏ cạnh ô nhập liệu */
-/* ============================================================ */
 .practice-speak-btn{
     width:auto;
     min-width:clamp(38px,4.5vw,46px);
@@ -818,9 +828,6 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
 .answer-actions button:hover{background:var(--surface-2);border-color:var(--primary);color:var(--primary)}
 .answer-actions button.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
 
-/* ============================================================ */
-/* HIGHLIGHT cụm đang đọc (karaoke) — VÀNG CAM */
-/* ============================================================ */
 .answer-phrase-btn.reading{
     background:linear-gradient(135deg,#f59e0b,#d97706) !important;
     color:#fff !important;
@@ -829,10 +836,6 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
     box-shadow:0 8px 20px rgba(245,158,11,.5) !important;
     transition:all .15s ease-out;
 }
-
-/* ============================================================ */
-/* TOOLTIP PINYIN — VÀNG CAM khớp highlight */
-/* ============================================================ */
 .answer-phrase-wrap{
     position:relative;
     display:inline-flex;
@@ -897,7 +900,7 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
 }
 
 /* ============================================================ */
-/* NAV — 3 NÚT TO ĐỀU NHAU + 1 NÚT NHỎ */
+/* NAV — 3 NÚT TO ĐỀU NHAU + MINI GROUP                         */
 /* ============================================================ */
 .practice-full-nav{
     display:flex;
@@ -1023,6 +1026,53 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
     box-shadow:0 6px 16px rgba(6,182,212,.4);
 }
 
+/* ═══ NÚT RANDOM — toggle: khi bật, nút Next sẽ nhảy ngẫu nhiên ═══ */
+.pf-nav-icon.mini-nav.random{
+    background:var(--surface);
+    color:var(--text-2);
+    border-color:var(--border);
+}
+.pf-nav-icon.mini-nav.random:hover:not(:disabled){
+    transform:scale(1.08);
+    border-color:#f59e0b;
+    color:#d97706;
+    background:rgba(245,158,11,.1);
+}
+.pf-nav-icon.mini-nav.random.active{
+    background:linear-gradient(135deg, #f59e0b, #d97706);
+    color:#fff;
+    border-color:transparent;
+    box-shadow:0 4px 12px rgba(245,158,11,.5);
+    opacity:1;
+    animation:randomPulse 2s ease-in-out infinite;
+}
+.pf-nav-icon.mini-nav.random.active:hover:not(:disabled){
+    transform:scale(1.12);
+    box-shadow:0 6px 18px rgba(245,158,11,.7);
+    border-color:transparent;
+}
+.pf-nav-icon.mini-nav.random.active i{
+    animation:diceShake 0.6s ease-in-out;
+}
+@keyframes randomPulse{
+    0%,100%{ box-shadow:0 4px 12px rgba(245,158,11,.5); }
+    50%{ box-shadow:0 4px 18px rgba(245,158,11,.85); }
+}
+@keyframes diceShake{
+    0%,100%{ transform:rotate(0deg); }
+    25%{ transform:rotate(-15deg); }
+    75%{ transform:rotate(15deg); }
+}
+[data-theme="dark"] .pf-nav-icon.mini-nav.random{
+    background:var(--surface-2);
+    color:var(--text-2);
+    border-color:var(--border);
+}
+[data-theme="dark"] .pf-nav-icon.mini-nav.random.active{
+    background:linear-gradient(135deg, #fbbf24, #f59e0b);
+    color:#1e1b4b;
+}
+
 .practice-full-nav .mini-group{
     display:flex;
     gap:.35rem;
@@ -1137,9 +1187,6 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
 .practice-full-header .card-tag.excel-tag{background:linear-gradient(135deg,rgba(22,163,74,.15),rgba(22,163,74,.1));color:#15803d;border:1px solid rgba(22,163,74,.3);font-weight:700;display:inline-flex;align-items:center;gap:.3rem}
 [data-theme="dark"] .practice-full-header .card-tag.excel-tag{background:linear-gradient(135deg,rgba(22,163,74,.25),rgba(22,163,74,.15));color:#4ade80;border-color:rgba(22,163,74,.5)}
 
-/* ============================================================ */
-/* HEADER DESKTOP — TikTok bar chiếm tối đa không gian còn thừa */
-/* ============================================================ */
 @media (min-width:769px){
     .header-inner{
         display:flex!important;
@@ -1273,9 +1320,6 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
     .practice-full-input{font-size:1rem;padding:.5rem .7rem}
 }
 
-/* ============================================================ */
-/* VOICE SETTINGS MODAL */
-/* ============================================================ */
 .voice-modal{position:fixed;inset:0;background:rgba(15,23,42,.8);backdrop-filter:blur(6px);z-index:4000;display:none;align-items:center;justify-content:center;padding:1rem;animation:fadeIn .2s}
 .voice-modal.show{display:flex}
 .voice-box{background:var(--surface);border-radius:20px;width:100%;max-width:460px;max-height:calc(100vh - 2rem);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);display:flex;flex-direction:column;animation:voiceSlideUp .3s cubic-bezier(.34,1.56,.64,1)}
@@ -1443,7 +1487,6 @@ def build_ui_html():
 <select id="pfSubjectFilter"><option value="">Tất cả chủ đề</option></select>
 </div>
 </div>
-<!-- ✅ DATASET SELECTOR trong Practice Full (1700 câu / Chuyên ngành) -->
 <div class="pf-dataset-row" id="pfDatasetRow">
     <span class="pf-dataset-label"><i class="fas fa-layer-group"></i> Bộ dữ liệu</span>
     <select class="pf-dataset-select" id="pfDatasetSelect"></select>
@@ -1484,6 +1527,9 @@ def build_ui_html():
         <i class="fas fa-volume-up"></i>
     </button>
     <div class="mini-group">
+        <button class="pf-nav-icon mini-nav random" id="pfRandomToggleBtn" type="button" title="Bật/tắt chế độ nhảy câu ngẫu nhiên" aria-label="Chế độ ngẫu nhiên">
+            <i class="fas fa-dice"></i>
+        </button>
         <button class="pf-nav-icon mini-nav voice" id="pfVoiceBtn" type="button" title="Cài đặt giọng đọc" aria-label="Cài đặt giọng đọc">
             <i class="fas fa-headphones"></i>
         </button>
@@ -1663,7 +1709,7 @@ function initDatasetSelector() {
     // Admin tự động có tier = 'active' → full quyền.
     var canAccess = canAccessChuyenNganh();
 
-    // Render sub-buttons (có khoá nhỏ nếu không đủ quyền)
+    // Render sub-buttons dạng PILL NGANG (có khoá nhỏ nếu không đủ quyền)
     var subGrid = $('dsSubGrid');
     if (subGrid) {
         var subHtml = '';
@@ -3230,6 +3276,7 @@ var pfCurrentAnswer = '';
 var pfCurrentVi = '';
 var pfCurrentPinyin = '';
 var pfHintEnabled = false;
+var pfRandomMode = false;  // 🎲 khi true → nút Next nhảy câu ngẫu nhiên
 
 window.openPracticeFull = function(stt, evt) {
     if (evt) { evt.stopPropagation(); if (evt.preventDefault) evt.preventDefault(); }
@@ -3329,14 +3376,60 @@ function loadPracticeFull(stt) {
     }, 200);
 }
 
+/* ============================================================ */
+/* 🎲 NÚT NEXT — hỗ trợ cả tuần tự và ngẫu nhiên (toggle)       */
+/* ============================================================ */
 window.pfNext = function() {
-    if (!pfCurrentStt) return;
+    if (!pfCurrentStt || filtered.length === 0) return;
+
     var idx = -1;
     for (var i = 0; i < filtered.length; i++) {
         if (String(filtered[i].stt) === String(pfCurrentStt)) { idx = i; break; }
     }
-    if (idx === -1 || idx >= filtered.length - 1) return;
+    if (idx === -1) return;
+
+    // 🎲 Chế độ ngẫu nhiên — nhảy câu bất kỳ khác câu hiện tại
+    if (pfRandomMode && filtered.length > 1) {
+        var newIdx = idx;
+        var tries = 0;
+        while (newIdx === idx && tries < 20) {
+            newIdx = Math.floor(Math.random() * filtered.length);
+            tries++;
+        }
+        if (newIdx === idx) newIdx = (idx + 1) % filtered.length;
+
+        // Animation rung lắc xúc xắc
+        var rndBtn = $('pfRandomToggleBtn');
+        if (rndBtn) {
+            var icon = rndBtn.querySelector('i');
+            if (icon) {
+                icon.style.animation = 'none';
+                void icon.offsetWidth;
+                icon.style.animation = 'diceShake 0.6s ease-in-out';
+            }
+        }
+        loadPracticeFull(filtered[newIdx].stt);
+        return;
+    }
+
+    // 📖 Chế độ tuần tự bình thường
+    if (idx >= filtered.length - 1) return;
     loadPracticeFull(filtered[idx + 1].stt);
+};
+
+/* ============================================================ */
+/* 🎲 TOGGLE RANDOM — khi bật, nút Next nhảy câu ngẫu nhiên     */
+/* ============================================================ */
+window.pfToggleRandom = function() {
+    pfRandomMode = !pfRandomMode;
+    var btn = $('pfRandomToggleBtn');
+    if (btn) {
+        btn.classList.toggle('active', pfRandomMode);
+        btn.title = pfRandomMode
+            ? 'ĐANG BẬT: Nút Next sẽ nhảy câu ngẫu nhiên'
+            : 'Bật/tắt chế độ nhảy câu ngẫu nhiên';
+    }
+    try { localStorage.setItem('pfRandomMode', pfRandomMode ? '1' : '0'); } catch(e) {}
 };
 
 window.pfPrev = function() {
@@ -3698,10 +3791,6 @@ window.speakPhrase = function(phrase, btn) {
     setTimeout(function(){ speechSynthesis.speak(utterance); }, 30);
 };
 
-/* ============================================================ */
-/* NÚT LOA CẠNH INPUT — TOGGLE đọc / dừng                       */
-/* ============================================================ */
-
 window._isSpeakingFull = false;
 window._speakToken = 0;
 
@@ -3884,10 +3973,6 @@ function _speakWithHighlightKaraoke(token) {
     setTimeout(speakNext, 100);
 }
 
-/* ============================================================ */
-/* NÚT ĐỌC NHANH — TOGGLE đọc / dừng                            */
-/* ============================================================ */
-
 window._isQuickSpeaking = false;
 window._quickSpeakToken = 0;
 
@@ -3969,6 +4054,29 @@ function _quickSpeakNormal(token) {
 }
 
 function initPracticeFull() {
+    // 🎲 Khôi phục trạng thái random mode từ lần trước
+    try {
+        var savedRandom = localStorage.getItem('pfRandomMode') === '1';
+        if (savedRandom) {
+            pfRandomMode = true;
+            var rBtnInit = $('pfRandomToggleBtn');
+            if (rBtnInit) {
+                rBtnInit.classList.add('active');
+                rBtnInit.title = 'ĐANG BẬT: Nút Next sẽ nhảy câu ngẫu nhiên';
+            }
+        }
+    } catch(e) {}
+
+    // Bind toggle Random
+    var randomToggleBtn = $('pfRandomToggleBtn');
+    if (randomToggleBtn) {
+        randomToggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            pfToggleRandom();
+        });
+    }
+
     $('pfClose').addEventListener('click', closePracticeFull);
     $('pfPrevBtn').addEventListener('click', pfPrev);
     $('pfNextBtn').addEventListener('click', pfNext);
@@ -4021,6 +4129,7 @@ function initPracticeFull() {
         if (isTyping) return;
         if (e.key === 'ArrowRight' && e.ctrlKey) pfNext();
         if (e.key === 'ArrowLeft' && e.ctrlKey) pfPrev();
+        if (e.key === 'r' || e.key === 'R') pfToggleRandom();  // 🎲 bật/tắt random mode
     });
     var modal = $('practiceFullModal');
     var touchStartX = 0;
