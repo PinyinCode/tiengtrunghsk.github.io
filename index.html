@@ -6542,6 +6542,7 @@ function hasPermission(permKey) {
 }
 
 /* ============ TIER STATE ============ */
+/* ============ TIER STATE ============ */
 function publishTierState() {
     if (!currentUser) {
         window.APP_TIER = 'demo';
@@ -6550,11 +6551,13 @@ function publishTierState() {
             maxHSK: (typeof DEMO_HSK_MAX === 'number') ? DEMO_HSK_MAX : 3,
             unlimitedWriting: false, isTrial: false, email: null
         };
+        _refreshDatasetLockUI();
         return;
     }
     if (currentUser.role === 'admin') {
         window.APP_TIER = 'active';
         window.APP_LIMITS = { maxQuestions: Infinity, maxHSK: 6, unlimitedWriting: true, isTrial: false, email: currentUser.email };
+        _refreshDatasetLockUI();
         return;
     }
     var tier = currentUser.tier || 'active';
@@ -6576,13 +6579,36 @@ function publishTierState() {
         window.APP_TIER = 'active';
         window.APP_LIMITS = { maxQuestions: Infinity, maxHSK: 6, unlimitedWriting: true, isTrial: false, email: currentUser.email };
     }
+    _refreshDatasetLockUI();
 }
 
-window.getUserTier = function() { return window.APP_TIER || 'demo'; };
-window.getUserLimits = function() {
-    return window.APP_LIMITS || { maxQuestions: 25, maxHSK: 3, unlimitedWriting: false };
-};
-
+/* ✅ Refresh lại UI khoá chuyên ngành mỗi khi tier đổi (login/logout/gia hạn) */
+function _refreshDatasetLockUI() {
+    // 1. Refresh selector trang chủ (sub-buttons + nút chính)
+    if (typeof initDatasetSelector === 'function') {
+        try { initDatasetSelector(); } catch(e) {}
+    }
+    // 2. Refresh selector trong Practice Full
+    if (typeof pfBuildDatasetSelect === 'function') {
+        try { pfBuildDatasetSelect(); } catch(e) {}
+    }
+    // 3. Nếu đang ở chuyên ngành mà bị mất quyền → đẩy về tổng hợp
+    if (typeof CURRENT_DATASET !== 'undefined' && CURRENT_DATASET !== 'tonghop') {
+        var canAccess = (window.APP_TIER === 'active');
+        if (!canAccess) {
+            try {
+                if (typeof window.__switchRawData === 'function') {
+                    window.__switchRawData('tonghop');
+                }
+                if (typeof applyFilter === 'function') applyFilter();
+                // Đồng bộ UI nút
+                if (typeof markCurrentDatasetActive === 'function') {
+                    markCurrentDatasetActive();
+                }
+            } catch(e) {}
+        }
+    }
+}
 /* ============ FIREBASE INIT ============ */
 try {
     firebase.initializeApp(FIREBASE_CONFIG);
