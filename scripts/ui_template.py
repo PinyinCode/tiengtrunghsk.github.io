@@ -100,6 +100,174 @@ body.show-practice .card-body{background:linear-gradient(135deg,var(--surface-2)
 @media(min-width:1800px){.mobile-view{grid-template-columns:1fr 1fr 1fr;gap:1.3rem}}
 
 /* ============================================================ */
+/* DATASET SELECTOR — 2 CẤP (Bộ dữ liệu + Chuyên ngành)        */
+/* ============================================================ */
+.dataset-selector{
+    margin-bottom:.75rem;
+    padding:.75rem .9rem;
+    background:linear-gradient(135deg,var(--surface),var(--surface-2));
+    border:1.5px solid var(--border);
+    border-radius:14px;
+    box-shadow:var(--shadow-sm);
+}
+.ds-label{
+    display:flex;align-items:center;gap:.4rem;
+    font-size:.7rem;font-weight:800;
+    color:var(--text-3);text-transform:uppercase;
+    letter-spacing:.5px;margin-bottom:.5rem;
+}
+.ds-label i{color:var(--primary);font-size:.85rem}
+.ds-main-row{
+    display:grid;grid-template-columns:1fr 1fr;gap:.5rem;
+}
+@media(max-width:500px){
+    .ds-main-row{grid-template-columns:1fr}
+}
+.ds-btn{
+    display:flex;align-items:center;gap:.5rem;
+    padding:.65rem .85rem;
+    border-radius:11px;
+    border:1.5px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    font-size:.82rem;font-weight:700;
+    font-family:inherit;cursor:pointer;
+    transition:.2s;text-align:left;
+    position:relative;
+}
+.ds-btn:hover{
+    border-color:var(--primary);
+    background:var(--primary-light);
+    transform:translateY(-1px);
+}
+.ds-btn.active{
+    background:linear-gradient(135deg,#4f46e5,#7c3aed);
+    color:#fff;border-color:transparent;
+    box-shadow:0 4px 12px rgba(124,58,237,.35);
+}
+.ds-btn i:first-child{
+    font-size:1rem;flex-shrink:0;
+}
+.ds-btn span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.ds-arrow{
+    font-size:.7rem;opacity:.7;transition:transform .25s;
+}
+.ds-btn.active .ds-arrow{transform:rotate(180deg)}
+
+/* ═══ Badge NEW cho nút "Chuyên ngành" ═══ */
+.ds-btn[data-dataset-group="chuyen-nganh"]{
+    overflow:visible;
+}
+.ds-btn[data-dataset-group="chuyen-nganh"] .ds-new-badge{
+    position:absolute;
+    top:-10px;
+    right:-8px;
+    padding:.18rem .5rem;
+    border-radius:50px;
+    background:linear-gradient(135deg,#ef4444,#dc2626 50%,#b91c1c);
+    color:#fff;
+    font-size:.6rem;
+    font-weight:900;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+    box-shadow:
+        0 2px 8px rgba(220,38,38,.5),
+        0 0 0 2px var(--surface);
+    animation:dsNewPulse 1.6s ease-in-out infinite;
+    z-index:10;
+    pointer-events:none;
+    line-height:1.2;
+    white-space:nowrap;
+}
+.ds-btn[data-dataset-group="chuyen-nganh"] .ds-new-badge::before{
+    content:'';
+    position:absolute;
+    inset:-4px;
+    border-radius:50px;
+    background:radial-gradient(circle,rgba(220,38,38,.4),transparent 70%);
+    animation:dsNewGlow 1.6s ease-in-out infinite;
+    z-index:-1;
+}
+@keyframes dsNewPulse{
+    0%,100%{
+        transform:scale(1);
+        box-shadow:
+            0 2px 8px rgba(220,38,38,.5),
+            0 0 0 2px var(--surface);
+    }
+    50%{
+        transform:scale(1.12);
+        box-shadow:
+            0 4px 14px rgba(220,38,38,.8),
+            0 0 0 2px var(--surface);
+    }
+}
+@keyframes dsNewGlow{
+    0%,100%{opacity:.4;transform:scale(1)}
+    50%{opacity:.9;transform:scale(1.4)}
+}
+.ds-btn[data-dataset-group="chuyen-nganh"].active .ds-new-badge{
+    display:none;
+}
+[data-theme="dark"] .ds-btn[data-dataset-group="chuyen-nganh"] .ds-new-badge{
+    box-shadow:
+        0 2px 8px rgba(220,38,38,.7),
+        0 0 0 2px var(--surface-2);
+}
+
+.ds-sub-wrap{
+    margin-top:.65rem;padding-top:.65rem;
+    border-top:1.5px dashed var(--border);
+    animation:dsFadeIn .25s ease-out;
+}
+@keyframes dsFadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.ds-sub-label{
+    display:flex;align-items:center;gap:.35rem;
+    font-size:.68rem;font-weight:800;
+    color:var(--text-3);text-transform:uppercase;
+    letter-spacing:.4px;margin-bottom:.5rem;
+}
+.ds-sub-label i{color:var(--amber);font-size:.8rem}
+.ds-sub-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;
+}
+@media(min-width:600px){
+    .ds-sub-grid{grid-template-columns:repeat(5,1fr)}
+}
+@media(max-width:400px){
+    .ds-sub-grid{grid-template-columns:repeat(2,1fr)}
+}
+.ds-sub-btn{
+    display:flex;flex-direction:column;align-items:center;gap:.3rem;
+    padding:.6rem .3rem;
+    border-radius:10px;
+    border:1.5px solid var(--border);
+    background:var(--surface);
+    color:var(--text-2);
+    font-size:.7rem;font-weight:700;
+    font-family:inherit;cursor:pointer;
+    transition:.18s;text-align:center;
+    position:relative;
+}
+.ds-sub-btn i{
+    font-size:1.15rem;
+    color:var(--ds-color, var(--primary));
+    transition:.18s;
+}
+.ds-sub-btn:hover{
+    border-color:var(--ds-color, var(--primary));
+    background:rgba(37,99,235,.08);
+    transform:translateY(-2px);
+}
+.ds-sub-btn.active{
+    background:var(--ds-color, var(--primary));
+    color:#fff;
+    border-color:var(--ds-color, var(--primary));
+    box-shadow:0 4px 12px rgba(15,23,42,.2);
+}
+.ds-sub-btn.active i{color:#fff}
+
+/* ============================================================ */
 /* FLASHCARD UI */
 /* ============================================================ */
 .card{
@@ -1031,6 +1199,34 @@ def build_ui_html():
 </div>
 </div></header>
 <!-- __TIKTOK_BAR__ -->
+
+<!-- ═══ DATASET SELECTOR ═══ -->
+<div class="dataset-selector" id="datasetSelector">
+    <div class="ds-label">
+        <i class="fas fa-layer-group"></i>
+        <span>Bộ dữ liệu</span>
+    </div>
+    <div class="ds-main-row">
+        <button class="ds-btn ds-btn-primary active" data-dataset="tonghop">
+            <i class="fas fa-book-open"></i>
+            <span id="dsTonghopLabel">1700 câu phản xạ tổng hợp VPCX</span>
+        </button>
+        <button class="ds-btn ds-btn-primary" data-dataset-group="chuyen-nganh" id="dsChuyenNganhBtn">
+            <i class="fas fa-industry"></i>
+            <span>Chuyên ngành</span>
+            <i class="fas fa-chevron-down ds-arrow"></i>
+            <span class="ds-new-badge" id="dsNewBadge">NEW</span>
+        </button>
+    </div>
+    <div class="ds-sub-wrap" id="dsSubWrap" style="display:none">
+        <div class="ds-sub-label">
+            <i class="fas fa-tags"></i>
+            <span>Chọn ngành</span>
+        </div>
+        <div class="ds-sub-grid" id="dsSubGrid"></div>
+    </div>
+</div>
+
 <div class="search-filter-row">
 <div class="search-bar"><i class="fas fa-search"></i>
 <input type="text" id="searchInput" placeholder="Tìm kiếm..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
@@ -1246,6 +1442,126 @@ var mobileWrapper;
 var currentBtn = null;
 
 var displayState = { vi: true, pinyin: false, practice: false };
+
+/* ============ DATASET SWITCHING (TỰ ĐỘNG) ============ */
+function initDatasetSelector() {
+    if (typeof DATASET_REGISTRY === 'undefined' || !DATASET_REGISTRY) return;
+    if (!DATASET_REGISTRY.tonghop) return;
+
+    // Cập nhật label "1700 câu"
+    var labelEl = $('dsTonghopLabel');
+    if (labelEl) {
+        var count = DATASET_REGISTRY.tonghop.count
+                 || (DATASET_REGISTRY.tonghop.data || []).length;
+        labelEl.textContent = count + ' câu phản xạ tổng hợp VPCX';
+    }
+
+    // Liệt kê tất cả dataset khác 'tonghop'
+    var chuyenNganhKeys = Object.keys(DATASET_REGISTRY).filter(function(id) {
+        return id !== 'tonghop';
+    });
+
+    // Không có file Excel nào trong data/ → ẩn nút "Chuyên ngành"
+    var cnBtn = $('dsChuyenNganhBtn');
+    if (chuyenNganhKeys.length === 0) {
+        if (cnBtn) cnBtn.style.display = 'none';
+        return;
+    }
+
+    // Render sub-buttons
+    var subGrid = $('dsSubGrid');
+    if (subGrid) {
+        var subHtml = '';
+        chuyenNganhKeys.forEach(function(id) {
+            var ds = DATASET_REGISTRY[id];
+            subHtml += '<button class="ds-sub-btn" data-dataset="' + ds.id +
+                       '" style="--ds-color:' + (ds.color || '#64748b') + '" ' +
+                       'title="' + escapeHtml(ds.name) + ' (' + ds.count + ' câu)">' +
+                       '<i class="fas ' + (ds.icon || 'fa-folder') + '"></i>' +
+                       '<span>' + escapeHtml(ds.name) + '</span>' +
+                       '</button>';
+        });
+        subGrid.innerHTML = subHtml;
+    }
+
+    // Bind nút "1700 câu"
+    document.querySelectorAll('.ds-btn[data-dataset="tonghop"]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            switchDataset('tonghop');
+            var sub = $('dsSubWrap');
+            if (sub) sub.style.display = 'none';
+            document.querySelectorAll('.ds-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+        });
+    });
+
+    // Bind nút "Chuyên ngành" (toggle)
+    if (cnBtn) {
+        cnBtn.addEventListener('click', function() {
+            var sub = $('dsSubWrap');
+            var isOpen = sub.style.display !== 'none';
+            if (isOpen) {
+                sub.style.display = 'none';
+                cnBtn.classList.remove('active');
+            } else {
+                sub.style.display = 'block';
+                cnBtn.classList.add('active');
+                document.querySelectorAll('.ds-btn[data-dataset="tonghop"]').forEach(function(b) {
+                    b.classList.remove('active');
+                });
+            }
+        });
+    }
+
+    // Bind sub buttons
+    document.querySelectorAll('.ds-sub-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var id = this.dataset.dataset;
+            document.querySelectorAll('.ds-sub-btn').forEach(function(b) { b.classList.remove('active'); });
+            this.classList.add('active');
+            switchDataset(id);
+            if (cnBtn) cnBtn.classList.add('active');
+        });
+    });
+
+    markCurrentDatasetActive();
+}
+
+function markCurrentDatasetActive() {
+    var current = (typeof CURRENT_DATASET !== 'undefined') ? CURRENT_DATASET : 'tonghop';
+    document.querySelectorAll('.ds-sub-btn').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.dataset === current);
+    });
+    document.querySelectorAll('.ds-btn[data-dataset="tonghop"]').forEach(function(b) {
+        b.classList.toggle('active', current === 'tonghop');
+    });
+    if (current !== 'tonghop') {
+        var wrap = $('dsSubWrap');
+        if (wrap) wrap.style.display = 'block';
+        document.querySelectorAll('.ds-btn[data-dataset-group="chuyen-nganh"]').forEach(function(b) {
+            b.classList.add('active');
+        });
+    }
+}
+
+function switchDataset(datasetId) {
+    if (!DATASET_REGISTRY[datasetId]) return;
+    if (typeof window.__switchRawData === 'function') {
+        window.__switchRawData(datasetId);
+    }
+
+    // Reset filter
+    state = { search:'', hsk:'', subject:'' };
+    if ($('searchInput')) $('searchInput').value = '';
+    if ($('hskFilter')) $('hskFilter').value = '';
+    if ($('subjectFilter')) $('subjectFilter').value = '';
+
+    buildFilters();
+    applyFilter();
+    updateResultCount();
+
+    if ($('fabGroup')) $('fabGroup').classList.remove('open');
+}
 
 /* ============ VOICE SETTINGS ============ */
 var voiceState = {
@@ -1575,6 +1891,7 @@ function initApp() {
     $('mainContent').style.display = 'block';
 
     loadVoiceSettings();
+    initDatasetSelector();
 
     if (typeof initSocial === 'function') initSocial();
     if (typeof updateFloatingLeftVisibility === 'function') updateFloatingLeftVisibility();
@@ -1892,6 +2209,7 @@ document.addEventListener('click', function(e) {
         e.target.closest('.edit-modal') || e.target.closest('.zalo-btn') ||
         e.target.closest('.tiktok-float-wrap') || e.target.closest('.tiktok-bar') ||
         e.target.closest('.renewal-modal') || e.target.closest('.voice-modal') ||
+        e.target.closest('.dataset-selector') ||
         e.target.closest('.toggle-check-btn')) return;
     clearFocus();
 }, true);
