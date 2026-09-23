@@ -663,12 +663,9 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
 .pf-chip-value{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
 .pf-chip-arrow{opacity:.5;font-size:.62rem;flex-shrink:0}
 .pf-chip select{position:absolute;inset:0;opacity:0;cursor:pointer;appearance:none;width:100%;height:100%;z-index:5}
-.pf-quick-nav{margin-top:.4rem;display:flex;align-items:center;gap:.5rem}
-.pf-quick-nav-label{font-size:clamp(.55rem,.72vw,.68rem);font-weight:700;color:var(--text-3);text-transform:uppercase;white-space:nowrap}
-.pf-quick-nav-select{flex:1;min-width:0;padding:clamp(.25rem,.5vh,.45rem) 2rem;border-radius:var(--radius-full);border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:clamp(.68rem,.85vw,.78rem);font-family:inherit;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path fill='%2394a3b8' d='M6 9L1 4h10z'/></svg>");background-repeat:no-repeat;background-position:right 12px center;background-size:10px}
 
 /* ============================================================ */
-/* 📚 DATASET + SEARCH cùng hàng trong Practice Full             */
+/* 📚 DATASET + SEARCH + QUICK-NAV cùng khối trong Practice Full */
 /* ============================================================ */
 .pf-dataset-row {
     display: flex;
@@ -798,6 +795,55 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
         max-width: 45%;
     }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   📌 Ô "CHỌN CÂU" GỘP VÀO KHỐI BỘ DỮ LIỆU — luôn xuống dòng riêng
+   → không bị ô bộ dữ liệu che khi scale trên mọi màn hình
+   ═══════════════════════════════════════════════════════════════ */
+.pf-dataset-row .pf-quick-nav {
+    flex: 1 1 100%;      /* ép xuống hàng riêng, chiếm full chiều ngang */
+    width: 100%;
+    margin-top: .25rem;
+    padding-top: .5rem;
+    border-top: 1px dashed rgba(139, 92, 246, 0.25);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+[data-theme="dark"] .pf-dataset-row .pf-quick-nav {
+    border-top-color: rgba(165, 180, 252, 0.25);
+}
+.pf-quick-nav-label {
+    font-size: clamp(.55rem, .72vw, .68rem);
+    font-weight: 700;
+    color: var(--text-3);
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.pf-quick-nav-select {
+    flex: 1;
+    min-width: 0;
+    padding: clamp(.25rem, .5vh, .45rem) 2rem;
+    border-radius: var(--radius-full);
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: clamp(.68rem, .85vw, .78rem);
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path fill='%2394a3b8' d='M6 9L1 4h10z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 10px;
+    transition: .15s;
+}
+.pf-quick-nav-select:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
 @media (max-width: 500px) {
     .pf-dataset-label {
         font-size: .58rem;
@@ -1366,10 +1412,10 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
     .pf-dataset-row{padding:.3rem .5rem;gap:.4rem;margin-top:.3rem}
     .pf-dataset-search input{padding:.28rem 2rem;font-size:.72rem}
     .pf-dataset-select{padding:.28rem 1.8rem .28rem .6rem;font-size:.72rem}
+    .pf-dataset-row .pf-quick-nav{padding-top:.35rem;margin-top:.15rem}
+    .pf-quick-nav-select{padding:.22rem 1.8rem .22rem .5rem;font-size:.68rem}
     .pf-filter-row{gap:.4rem}
     .pf-chip{padding:.2rem .5rem;font-size:.68rem}
-    .pf-quick-nav{margin-top:.25rem}
-    .pf-quick-nav-select{padding:.22rem 1.8rem .22rem .5rem;font-size:.68rem}
     .practice-full-body{padding:.5rem .7rem calc(70px + env(safe-area-inset-bottom))}
     .practice-full-content{gap:.5rem}
     .practice-full-vi{font-size:1.05rem;padding:.55rem .55rem;line-height:1.35}
@@ -1382,7 +1428,7 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
     .pf-tiktok-float{transform:scale(.85);transform-origin:left bottom;left:8px;bottom:calc(4px + env(safe-area-inset-bottom))}
 }
 @media (max-width:1024px) and (max-height:420px) and (orientation:landscape){
-    .pf-quick-nav{display:none}
+    .pf-dataset-row .pf-quick-nav{display:none}
     .practice-full-header .pf-tags{overflow-x:auto}
     .practice-full-vi{font-size:.95rem;padding:.45rem .5rem}
     .practice-full-input{font-size:1rem;padding:.5rem .7rem}
@@ -1556,8 +1602,9 @@ def build_ui_html():
 </div>
 </div>
 
-<!-- ═══ BỘ DỮ LIỆU + TÌM KIẾM (CÙNG HÀNG trên ≥600px) ═══ -->
+<!-- ═══ KHỐI GỘP: BỘ DỮ LIỆU + TÌM KIẾM + CHỌN CÂU ═══ -->
 <div class="pf-dataset-row" id="pfDatasetRow">
+    <!-- Hàng 1: Bộ dữ liệu + Ô tìm kiếm -->
     <span class="pf-dataset-label"><i class="fas fa-layer-group"></i> Bộ dữ liệu</span>
     <select class="pf-dataset-select" id="pfDatasetSelect"></select>
 
@@ -1566,11 +1613,14 @@ def build_ui_html():
         <input type="text" id="pfSearchInput" placeholder="Tìm kiếm..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
         <button class="pf-search-clear" id="pfClearSearchBtn" aria-label="Xóa"><i class="fas fa-times"></i></button>
     </div>
+
+    <!-- Hàng 2: Ô chọn câu — nằm bên dưới ô bộ dữ liệu, không bị che khi scale -->
+    <div class="pf-quick-nav" id="pfQuickNavWrap">
+        <span class="pf-quick-nav-label">Câu:</span>
+        <select class="pf-quick-nav-select" id="pfQuickNav"><option value="">-- Chọn câu --</option></select>
+    </div>
 </div>
 
-<div class="pf-quick-nav"><span class="pf-quick-nav-label">Câu:</span>
-<select class="pf-quick-nav-select" id="pfQuickNav"><option value="">-- Chọn câu --</option></select>
-</div>
 </div>
 <div class="practice-full-body">
 <div class="practice-full-content">
