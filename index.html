@@ -199,18 +199,8 @@ body.show-practice .card-body{background:linear-gradient(135deg,var(--surface-2)
     z-index:-1;
 }
 @keyframes dsNewPulse{
-    0%,100%{
-        transform:scale(1);
-        box-shadow:
-            0 2px 8px rgba(220,38,38,.5),
-            0 0 0 2px var(--surface);
-    }
-    50%{
-        transform:scale(1.12);
-        box-shadow:
-            0 4px 14px rgba(220,38,38,.8),
-            0 0 0 2px var(--surface);
-    }
+    0%,100%{transform:scale(1);box-shadow:0 2px 8px rgba(220,38,38,.5),0 0 0 2px var(--surface);}
+    50%{transform:scale(1.12);box-shadow:0 4px 14px rgba(220,38,38,.8),0 0 0 2px var(--surface);}
 }
 @keyframes dsNewGlow{
     0%,100%{opacity:.4;transform:scale(1)}
@@ -238,113 +228,332 @@ body.show-practice .card-body{background:linear-gradient(135deg,var(--surface-2)
     letter-spacing:.4px;margin-bottom:.5rem;
 }
 .ds-sub-label i{color:var(--amber);font-size:.8rem}
-.ds-sub-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;
-}
-@media(min-width:600px){
-    .ds-sub-grid{grid-template-columns:repeat(5,1fr)}
-}
-@media(max-width:400px){
-    .ds-sub-grid{grid-template-columns:repeat(2,1fr)}
-}
-.ds-sub-btn{
-    display:flex;flex-direction:column;align-items:center;gap:.3rem;
-    padding:.6rem .3rem;
-    border-radius:10px;
-    border:1.5px solid var(--border);
-    background:var(--surface);
-    color:var(--text-2);
-    font-size:.7rem;font-weight:700;
-    font-family:inherit;cursor:pointer;
-    transition:.18s;text-align:center;
-    position:relative;
-}
-.ds-sub-btn i{
-    font-size:1.15rem;
-    color:var(--ds-color, var(--primary));
-    transition:.18s;
-}
-.ds-sub-btn:hover{
-    border-color:var(--ds-color, var(--primary));
-    background:rgba(37,99,235,.08);
-    transform:translateY(-2px);
-}
-.ds-sub-btn.active{
-    background:var(--ds-color, var(--primary));
-    color:#fff;
-    border-color:var(--ds-color, var(--primary));
-    box-shadow:0 4px 12px rgba(15,23,42,.2);
-}
-.ds-sub-btn.active i{color:#fff}
 
 /* ═══════════════════════════════════════════════════════════════
-   🔒 KHOÁ CHUYÊN NGÀNH — Demo/Trial chưa gia hạn
+   🎨 CHUYÊN NGÀNH — LAYOUT NGANG (COMPACT)
+   Icon trái | Tên + số câu phải
    ═══════════════════════════════════════════════════════════════ */
-
-/* Sub-button ngành bị khoá */
-.ds-sub-btn.locked {
-    opacity: 0.6;
-    cursor: not-allowed;
-    filter: grayscale(0.4);
-    padding-right: 1.6rem;
+.ds-sub-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);      /* 2 cột — phù hợp layout ngang */
+    gap:.5rem;
 }
-.ds-sub-btn.locked:hover {
-    transform: none;
-    background: var(--surface);
-    border-color: var(--border);
+@media(min-width:600px){
+    .ds-sub-grid{grid-template-columns:repeat(3,1fr);gap:.5rem;}
 }
-.ds-sub-btn.locked i:first-child {
-    color: var(--text-3) !important;
+@media(min-width:900px){
+    .ds-sub-grid{grid-template-columns:repeat(4,1fr);gap:.5rem;}
+}
+@media(max-width:380px){
+    .ds-sub-grid{grid-template-columns:1fr;gap:.45rem;}
 }
 
-/* 🔒 icon khoá nhỏ ở góc phải trên của sub-button */
-.ds-sub-lock {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 0.58rem;
-    color: #dc2626;
-    background: rgba(220, 38, 38, 0.14);
-    padding: 2px 4px;
-    border-radius: 5px;
-    line-height: 1;
-    pointer-events: none;
-    box-shadow: 0 1px 3px rgba(220, 38, 38, 0.2);
-}
-[data-theme="dark"] .ds-sub-lock {
-    color: #fca5a5;
-    background: rgba(220, 38, 38, 0.3);
-}
-
-/* 🔒 khoá nhỏ cạnh chữ "Chuyên ngành" trên nút chính */
-.ds-main-lock {
-    font-size: 0.7rem;
-    color: #dc2626;
-    margin-left: 0.35rem;
-    padding: 2px 5px;
-    background: rgba(220, 38, 38, 0.12);
-    border-radius: 5px;
-    line-height: 1;
-    display: inline-flex;
-    align-items: center;
-    flex-shrink: 0;
-}
-[data-theme="dark"] .ds-main-lock {
-    color: #fca5a5;
-    background: rgba(220, 38, 38, 0.28);
+/* ─── CARD NGANG ─── */
+.ds-sub-btn{
+    display:flex;
+    flex-direction:row;                        /* ← Ngang */
+    align-items:center;
+    justify-content:flex-start;
+    gap:.55rem;                                /* khoảng cách icon ↔ text */
+    padding:.5rem .65rem;
+    min-height:48px;
+    border-radius:11px;
+    border:1.5px solid var(--border);
+    background:linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+    color:var(--text);
+    font-family:inherit;
+    font-size:.75rem;
+    font-weight:700;
+    cursor:pointer;
+    transition:all .28s cubic-bezier(.34,1.56,.64,1);
+    text-align:left;
+    position:relative;
+    overflow:hidden;
+    box-shadow:
+        0 1px 2px rgba(15,23,42,.04),
+        0 2px 8px rgba(15,23,42,.03);
 }
 
-/* Nút "Chuyên ngành" chính khi có khoá → viền đỏ nhẹ */
-.ds-btn[data-dataset-group="chuyen-nganh"].has-lock {
-    border-color: rgba(220, 38, 38, 0.35);
+/* Shine sweep khi hover */
+.ds-sub-btn::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(139, 92, 246, 0.1),
+        transparent
+    );
+    transition:left .6s ease;
+    pointer-events:none;
+    z-index:0;
 }
-.ds-btn[data-dataset-group="chuyen-nganh"].has-lock:hover {
-    border-color: #dc2626;
-    background: rgba(220, 38, 38, 0.06);
+.ds-sub-btn:hover::before{left:100%;}
+
+/* ─── ICON BADGE — nhỏ gọn ─── */
+.ds-sub-btn > i:first-child{
+    position:relative;
+    z-index:1;
+    width:34px;
+    height:34px;
+    border-radius:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:.92rem;
+    color:#fff;
+    background:linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    box-shadow:
+        0 2px 6px rgba(99,102,241,.3),
+        0 1px 2px rgba(99,102,241,.4),
+        inset 0 1px 0 rgba(255,255,255,.3);
+    transition:all .35s cubic-bezier(.34,1.56,.64,1);
+    flex-shrink:0;
 }
-.ds-btn[data-dataset-group="chuyen-nganh"].has-lock.active {
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
-    border-color: transparent;
+/* Highlight nhỏ trên icon */
+.ds-sub-btn > i:first-child::after{
+    content:'';
+    position:absolute;
+    top:2px;
+    left:50%;
+    transform:translateX(-50%);
+    width:55%;
+    height:40%;
+    background:radial-gradient(
+        ellipse at center top,
+        rgba(255,255,255,.5) 0%,
+        transparent 70%
+    );
+    border-radius:50%;
+    pointer-events:none;
+}
+
+/* ─── CỘT TEXT (tên + chip câu) ─── */
+.ds-sub-btn > span{
+    position:relative;
+    z-index:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:2px;
+    flex:1;
+    min-width:0;
+    font-weight:800;
+    font-size:.76rem;
+    line-height:1.15;
+    color:var(--text);
+    letter-spacing:-.01em;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    transition:color .2s ease;
+}
+
+/* ─── CHIP SỐ CÂU — inline bên dưới tên ─── */
+.ds-sub-btn::after{
+    content:attr(data-count) " câu";
+    position:absolute;
+    left:calc(.65rem + 34px + .55rem);         /* canh theo icon + gap */
+    bottom:.5rem;
+    z-index:1;
+    font-size:.56rem;
+    font-weight:800;
+    color:#6366f1;
+    padding:1px 6px;
+    border-radius:50px;
+    background:linear-gradient(135deg,
+        rgba(99,102,241,.1),
+        rgba(139,92,246,.08));
+    border:1px solid rgba(99,102,241,.2);
+    transition:all .25s ease;
+    letter-spacing:.2px;
+    white-space:nowrap;
+    line-height:1.4;
+    display:none;                              /* Ẩn mặc định */
+}
+
+/* Trên màn >=600px: hiện chip */
+@media(min-width:600px){
+    .ds-sub-btn{
+        padding:.5rem .65rem .65rem;
+        align-items:flex-start;
+    }
+    .ds-sub-btn > span{
+        padding-top:2px;
+        padding-bottom:16px;                   /* chừa chỗ cho chip dưới */
+    }
+    .ds-sub-btn::after{display:inline-block;}
+}
+
+[data-theme="dark"] .ds-sub-btn::after{
+    color:#a5b4fc;
+    background:linear-gradient(135deg,
+        rgba(99,102,241,.2),
+        rgba(139,92,246,.15));
+    border-color:rgba(165,180,252,.3);
+}
+
+/* ─── HOVER ─── */
+.ds-sub-btn:hover{
+    transform:translateY(-2px);
+    border-color:rgba(139,92,246,.45);
+    box-shadow:
+        0 6px 16px rgba(99,102,241,.15),
+        0 2px 6px rgba(99,102,241,.1);
+}
+.ds-sub-btn:hover > i:first-child{
+    transform:scale(1.08) rotate(-4deg);
+    box-shadow:
+        0 5px 14px rgba(99,102,241,.45),
+        0 2px 4px rgba(139,92,246,.5),
+        inset 0 1px 0 rgba(255,255,255,.4);
+}
+
+/* ─── ACTIVE ─── */
+.ds-sub-btn.active{
+    background:linear-gradient(180deg,
+        rgba(99,102,241,.07) 0%,
+        rgba(139,92,246,.04) 100%);
+    border-color:#8b5cf6;
+    box-shadow:
+        0 4px 14px rgba(139,92,246,.2),
+        0 0 0 2px rgba(139,92,246,.15),
+        0 0 0 1px rgba(139,92,246,.3) inset;
+    transform:translateY(-1px);
+}
+.ds-sub-btn.active::before{left:100%;}
+.ds-sub-btn.active > i:first-child{
+    transform:scale(1.05);
+    background:linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    box-shadow:
+        0 5px 14px rgba(79,70,229,.5),
+        0 2px 6px rgba(124,58,237,.55),
+        inset 0 1px 0 rgba(255,255,255,.35);
+}
+.ds-sub-btn.active > span{
+    color:#6d28d9;
+    font-weight:900;
+}
+[data-theme="dark"] .ds-sub-btn.active > span{
+    color:#c4b5fd;
+}
+.ds-sub-btn.active::after{
+    background:linear-gradient(135deg, #6366f1, #8b5cf6);
+    color:#fff;
+    border-color:transparent;
+    box-shadow:0 2px 6px rgba(139,92,246,.4);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   🔒 LOCKED
+   ═══════════════════════════════════════════════════════════════ */
+.ds-sub-btn.locked{cursor:not-allowed;}
+.ds-sub-btn.locked > i:first-child{
+    background:linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+    box-shadow:
+        0 2px 6px rgba(100,116,139,.25),
+        inset 0 1px 0 rgba(255,255,255,.2);
+}
+.ds-sub-btn.locked > i:first-child::after{
+    background:radial-gradient(
+        ellipse at center top,
+        rgba(255,255,255,.25) 0%,
+        transparent 70%
+    );
+}
+.ds-sub-btn.locked > span{color:var(--text-3);}
+.ds-sub-btn.locked::after{
+    color:var(--text-3);
+    background:var(--surface-2);
+    border-color:var(--border);
+    opacity:.7;
+}
+.ds-sub-btn.locked:hover{
+    transform:none;
+    border-color:var(--border);
+    box-shadow:
+        0 1px 2px rgba(15,23,42,.04),
+        0 2px 8px rgba(15,23,42,.03);
+}
+.ds-sub-btn.locked:hover::before{left:-100%;}
+.ds-sub-btn.locked:hover > i:first-child{
+    transform:none;
+    box-shadow:
+        0 2px 6px rgba(100,116,139,.25),
+        inset 0 1px 0 rgba(255,255,255,.2);
+}
+
+/* ─── BADGE 🔒 nhỏ — góc phải trên ─── */
+.ds-sub-lock{
+    position:absolute;
+    top:5px;
+    right:5px;
+    z-index:3;
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    background:linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+    box-shadow:
+        0 1px 4px rgba(220,38,38,.5),
+        0 0 0 1.5px var(--surface);
+    pointer-events:none;
+    font-size:.5rem;
+    line-height:1;
+}
+.ds-sub-lock::before{
+    content:'\f023';
+    font-family:'Font Awesome 6 Free';
+    font-weight:900;
+    display:inline-block;
+}
+.ds-sub-btn.locked:hover .ds-sub-lock{
+    animation:lockShake .5s ease-in-out;
+}
+@keyframes lockShake{
+    0%,100%{transform:rotate(0);}
+    20%{transform:rotate(-10deg) scale(1.05);}
+    40%{transform:rotate(10deg) scale(1.05);}
+    60%{transform:rotate(-6deg);}
+    80%{transform:rotate(6deg);}
+}
+[data-theme="dark"] .ds-sub-lock{
+    box-shadow:
+        0 1px 4px rgba(220,38,38,.7),
+        0 0 0 1.5px var(--surface-2);
+}
+
+/* ─── RESPONSIVE NHỎ ─── */
+@media(max-width:500px){
+    .ds-sub-btn{
+        padding:.45rem .55rem;
+        gap:.5rem;
+        min-height:44px;
+        border-radius:10px;
+    }
+    .ds-sub-btn > i:first-child{
+        width:30px;
+        height:30px;
+        border-radius:8px;
+        font-size:.85rem;
+    }
+    .ds-sub-btn > span{
+        font-size:.72rem;
+    }
+    .ds-sub-lock{
+        width:14px;
+        height:14px;
+        font-size:.45rem;
+        top:4px;
+        right:4px;
+    }
 }
 
 /* ============================================================ */
@@ -3563,6 +3772,79 @@ var FILLER_WORDS = ["\u4e86","\u7684","\u5417","\u5462","\u5427","\u554a","\u544
 var $ = function(id) { return document.getElementById(id); };
 
 
+/* ============================================================ */
+/* ✅ AUTO VERSION CHECK — Tránh user bị kẹt cache cũ            */
+/* ↑↑↑ TĂNG SỐ NÀY MỖI LẦN DEPLOY CODE MỚI ↑↑↑ */
+/* ============================================================ */
+var APP_VERSION = '2.0.1';
+
+(function checkAppVersion() {
+    try {
+        var storedVersion = localStorage.getItem('app_version');
+
+        if (storedVersion && storedVersion !== APP_VERSION) {
+            console.log('🔄 Phát hiện version mới: ' + storedVersion + ' → ' + APP_VERSION);
+
+            // Hiện overlay "Đang cập nhật..."
+            var overlay = document.createElement('div');
+            overlay.id = 'appUpdateOverlay';
+            overlay.style.cssText = 'position:fixed;inset:0;background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;color:#fff;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif;';
+            overlay.innerHTML =
+                '<div style="width:64px;height:64px;border-radius:16px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1.8rem;animation:spin 1s linear infinite;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);">' +
+                    '<i class="fas fa-sync-alt"></i>' +
+                '</div>' +
+                '<div style="font-size:1.15rem;font-weight:800;letter-spacing:.3px;">Đang cập nhật phiên bản mới...</div>' +
+                '<div style="font-size:.8rem;opacity:.75;font-family:monospace;">' +
+                    storedVersion + ' → ' + APP_VERSION +
+                '</div>';
+            document.body.appendChild(overlay);
+
+            // Inject keyframes
+            var style = document.createElement('style');
+            style.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
+            document.head.appendChild(style);
+
+            // Xoá cache liên quan (KHÔNG xoá: voiceSettings, displayState, theme, fabOpen)
+            var keysToRemove = [];
+            Object.keys(localStorage).forEach(function(k) {
+                if (k.startsWith('user_cache_') ||
+                    k.startsWith('login_log_') ||
+                    k === 'admin_users_cache' ||
+                    k === 'demo_usage' ||
+                    k === 'focusHidden') {
+                    keysToRemove.push(k);
+                }
+            });
+            keysToRemove.forEach(function(k) {
+                try { localStorage.removeItem(k); } catch(e) {}
+            });
+            console.log('🧹 Đã xoá ' + keysToRemove.length + ' cache items');
+
+            localStorage.setItem('app_version', APP_VERSION);
+            localStorage.setItem('app_build_time', Date.now());
+
+            // Force reload với cache-bypass
+            setTimeout(function() {
+                var url = new URL(window.location.href);
+                url.searchParams.set('_v', APP_VERSION);
+                window.location.replace(url.toString());
+            }, 900);
+            return;
+        }
+
+        // Lần đầu hoặc version khớp
+        if (!storedVersion) {
+            localStorage.setItem('app_version', APP_VERSION);
+            localStorage.setItem('app_build_time', Date.now());
+            console.log('✅ App version khởi tạo: ' + APP_VERSION);
+        } else {
+            console.log('✅ App version: ' + APP_VERSION + ' (khớp)');
+        }
+    } catch(e) {
+        console.warn('Version check error:', e);
+    }
+})();
+
 var filtered = [];
 var state = { search:'', hsk:'', subject:'' };
 var PAGE_SIZE = 300;
@@ -3585,14 +3867,12 @@ function canAccessChuyenNganh() {
 /* ============================================================ */
 function showChuyenNganhLockMessage() {
     if (typeof currentUser === 'undefined' || !currentUser) {
-        // Chưa đăng nhập (demo)
         if (confirm('🔒 Bộ dữ liệu Chuyên ngành\n\n' +
                     'Bạn cần ĐĂNG NHẬP và GIA HẠN để mở khoá.\n\n' +
                     'Đăng nhập ngay?')) {
             if (typeof showLoginModal === 'function') showLoginModal();
         }
     } else {
-        // Đã đăng nhập nhưng chưa gia hạn (trial/expired)
         if (confirm('🔒 Bộ dữ liệu Chuyên ngành\n\n' +
                     'Chỉ tài khoản ĐÃ GIA HẠN mới mở được.\n\n' +
                     'Gia hạn ngay?')) {
@@ -3642,11 +3922,11 @@ function initDatasetSelector() {
         return;
     }
 
-    // ✅ Kiểm tra quyền: chỉ tier 'active' (đã gia hạn) mới mở được chuyên ngành.
+    // ✅ Kiểm tra quyền: chỉ tier 'active' mới mở được chuyên ngành.
     // Admin tự động có tier = 'active' → full quyền.
     var canAccess = canAccessChuyenNganh();
 
-    // Render sub-buttons (có khoá nhỏ nếu không đủ quyền)
+    // Render sub-buttons (layout ngang, có khoá nhỏ nếu không đủ quyền)
     var subGrid = $('dsSubGrid');
     if (subGrid) {
         var subHtml = '';
@@ -3654,14 +3934,14 @@ function initDatasetSelector() {
             var ds = DATASET_REGISTRY[id];
             var lockIcon = canAccess
                 ? ''
-                : '<i class="fas fa-lock ds-sub-lock"></i>';
+                : '<i class="ds-sub-lock" aria-label="Đã khoá"></i>';
             var lockCls = canAccess ? '' : ' locked';
             subHtml += '<button class="ds-sub-btn' + lockCls + '" ' +
                        'data-dataset="' + ds.id + '" ' +
                        'data-locked="' + (canAccess ? '0' : '1') + '" ' +
-                       'style="--ds-color:' + (ds.color || '#64748b') + '" ' +
+                       'data-count="' + (ds.count || 0) + '" ' +
                        'title="' + escapeHtml(ds.name) + ' (' + ds.count + ' câu)' +
-                       (canAccess ? '' : ' — Cần gia hạn để mở khoá') + '">' +
+                       (canAccess ? '' : ' — Cần đăng nhập + gia hạn để mở khoá') + '">' +
                        '<i class="fas ' + (ds.icon || 'fa-folder') + '"></i>' +
                        '<span>' + escapeHtml(ds.name) + '</span>' +
                        lockIcon +
@@ -4765,7 +5045,6 @@ function applyFilter() {
         }, 150);
     }
 }
-
 function render(reset) {
     if (reset) { renderedCount = 0; focusedStt = null; }
     if (!filtered.length) {
@@ -5905,7 +6184,7 @@ window.stopQuickSpeak = function() {
 };
 
 window.toggleQuickSpeakFull = function() {
-    if (!pfCurrentAnswer) return;
+    if (!pfCurrentAnswer =) return;
 
     if (window._isQuickSpeaking) {
         stopQuickSpeak();
@@ -5974,10 +6253,10 @@ function initPracticeFull() {
         if (val && allowed.indexOf(val) === -1) {
             var info = getTierInfo();
             var msg = info.tier === 'trial'
-                ? 'Bản Trial chỉ cho phép lọc HSK1-' + info.maxHSK + '.'
-                : 'Bản Demo chỉ cho phép lọc HSK1-' + info.maxHSK + '.';
+                ? 'Bản Trial chỉ cho phép lọc HSK1 $-' + info.maxHSK + '.'
+               (' : 'Bản Demo chỉ cho phép lpfọc HSK1-' + info.maxQuickHSK + '.';
             alert(msg);
-            this.value = '';
+           Spe this.value = '';
             return;
         }
         pfApplyFilter();
@@ -6031,7 +6310,7 @@ function initPracticeFull() {
     }
     if (!window._pfQuickSpeakBound) {
         window._pfQuickSpeakBound = true;
-        var quickBtn = $('pfQuickSpeakBtn');
+        var quickBtnakBtn');
         if (quickBtn) {
             quickBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
