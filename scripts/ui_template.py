@@ -225,36 +225,45 @@ body.show-practice .card-body{background:linear-gradient(135deg,var(--surface-2)
 }
 .ds-sub-label i{color:var(--amber);font-size:.8rem}
 
-/* ═══ SUB-BUTTONS dạng chữ nhật dẹp (pill ngang) ═══ */
+/* ═══════════════════════════════════════════════════════════════
+   ⭐ SUB-BUTTONS CHUYÊN NGÀNH — NỔI BẬT HƠN ⭐
+   Mỗi ngành có --ds-color riêng → viền + nền + shadow cùng màu
+   Vẫn đồng bộ tổng thể: cùng bo tròn, cùng công thức, cùng weight
+   ═══════════════════════════════════════════════════════════════ */
 .ds-sub-grid{
     display:flex;
     flex-wrap:wrap;
-    gap:.4rem;
+    gap:.5rem;
 }
 .ds-sub-btn{
     display:inline-flex;
     align-items:center;
-    gap:.4rem;
-    padding:.42rem .8rem;
+    gap:.45rem;
+    padding:.5rem .95rem;
     border-radius:50px;
-    border:1.5px solid var(--border);
-    background:var(--surface);
-    color:var(--text-2);
-    font-size:.74rem;
-    font-weight:700;
+    /* Nền gradient nhẹ theo màu riêng của từng ngành */
+    background:linear-gradient(135deg,
+        color-mix(in srgb, var(--ds-color, #2563eb) 12%, var(--surface)),
+        color-mix(in srgb, var(--ds-color, #2563eb) 4%, var(--surface)));
+    /* Viền dày 2px + màu riêng của ngành → nổi bật */
+    border:2px solid color-mix(in srgb, var(--ds-color, #2563eb) 40%, var(--border));
+    color:var(--text);
+    font-size:.76rem;
+    font-weight:800;
     font-family:inherit;
     cursor:pointer;
-    transition:all .18s ease;
+    transition:all .2s ease;
     text-align:left;
     position:relative;
     line-height:1;
     white-space:nowrap;
-    box-shadow:0 1px 2px rgba(15,23,42,.04);
+    box-shadow:0 2px 6px color-mix(in srgb, var(--ds-color, #2563eb) 18%, transparent);
+    letter-spacing:.01em;
 }
 .ds-sub-btn i:first-child{
-    font-size:.85rem;
+    font-size:.9rem;
     color:var(--ds-color, var(--primary));
-    transition:.18s;
+    transition:.2s;
     flex-shrink:0;
 }
 .ds-sub-btn span{
@@ -264,25 +273,30 @@ body.show-practice .card-body{background:linear-gradient(135deg,var(--surface-2)
 }
 .ds-sub-btn:hover{
     border-color:var(--ds-color, var(--primary));
-    background:color-mix(in srgb, var(--ds-color, #2563eb) 8%, var(--surface));
-    transform:translateY(-1px);
-    box-shadow:0 4px 10px rgba(15,23,42,.1);
+    background:linear-gradient(135deg,
+        color-mix(in srgb, var(--ds-color, #2563eb) 20%, var(--surface)),
+        color-mix(in srgb, var(--ds-color, #2563eb) 8%, var(--surface)));
+    transform:translateY(-2px);
+    box-shadow:0 6px 16px color-mix(in srgb, var(--ds-color, #2563eb) 30%, transparent);
 }
 .ds-sub-btn.active{
-    background:var(--ds-color, var(--primary));
+    background:linear-gradient(135deg,
+        var(--ds-color, var(--primary)),
+        color-mix(in srgb, var(--ds-color, #2563eb) 72%, #000));
     color:#fff;
     border-color:var(--ds-color, var(--primary));
-    box-shadow:0 4px 12px color-mix(in srgb, var(--ds-color, #2563eb) 40%, transparent);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--ds-color, #2563eb) 55%, transparent);
+    transform:translateY(-1px);
 }
 .ds-sub-btn.active i:first-child{
     color:#fff;
 }
 @media(max-width:500px){
     .ds-sub-btn{
-        padding:.38rem .7rem;
-        font-size:.7rem;
+        padding:.42rem .75rem;
+        font-size:.72rem;
     }
-    .ds-sub-btn i:first-child{ font-size:.8rem; }
+    .ds-sub-btn i:first-child{ font-size:.82rem; }
     .ds-sub-btn span{ max-width:140px; }
 }
 
@@ -641,12 +655,6 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
 .practice-full-modal:not(.show) .pf-tiktok-float{display:none!important}
 
 .pf-filters{padding:clamp(.4rem,1vh,.55rem) clamp(.85rem,2vw,1.25rem) clamp(.35rem,.8vh,.45rem);background:var(--surface);border-bottom:1px solid var(--border);flex:0 0 auto;overflow-y:auto}
-.pf-search-wrap{position:relative;margin-bottom:.45rem}
-.pf-search-wrap i.fa-search{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-3);pointer-events:none}
-.pf-search-wrap input{width:100%;padding:clamp(.35rem,.6vh,.55rem) 2.3rem;border-radius:var(--radius-full);border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:clamp(.72rem,.9vw,.85rem);outline:none;font-family:inherit}
-.pf-search-wrap input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.15)}
-.pf-search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;border:none;background:var(--surface-2);color:var(--text-2);cursor:pointer;display:none;align-items:center;justify-content:center}
-.pf-search-clear.show{display:flex}
 .pf-filter-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
 .pf-chip{display:flex;align-items:center;gap:.4rem;padding:clamp(.25rem,.5vh,.4rem) clamp(.5rem,.8vw,.75rem);border-radius:var(--radius-full);border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:clamp(.68rem,.85vw,.78rem);cursor:pointer;min-width:0;position:relative;overflow:hidden}
 .pf-chip.has-value{background:var(--primary);color:#fff;border-color:var(--primary)}
@@ -660,7 +668,7 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
 .pf-quick-nav-select{flex:1;min-width:0;padding:clamp(.25rem,.5vh,.45rem) 2rem;border-radius:var(--radius-full);border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:clamp(.68rem,.85vw,.78rem);font-family:inherit;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path fill='%2394a3b8' d='M6 9L1 4h10z'/></svg>");background-repeat:no-repeat;background-position:right 12px center;background-size:10px}
 
 /* ============================================================ */
-/* 📚 DATASET SELECTOR trong Practice Full                       */
+/* 📚 DATASET + SEARCH cùng hàng trong Practice Full             */
 /* ============================================================ */
 .pf-dataset-row {
     display: flex;
@@ -675,6 +683,7 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
     border-radius: 12px;
     position: relative;
     transition: .2s;
+    flex-wrap: wrap;
 }
 [data-theme="dark"] .pf-dataset-row {
     background: linear-gradient(135deg,
@@ -705,7 +714,7 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
     font-size: .9em;
 }
 .pf-dataset-select {
-    flex: 1;
+    flex: 1 1 160px;
     min-width: 0;
     padding: clamp(.32rem, .55vh, .45rem) 2rem clamp(.32rem, .55vh, .45rem) .75rem;
     border-radius: 999px;
@@ -730,6 +739,64 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
 }
 .pf-dataset-select option.locked-opt {
     color: #94a3b8;
+}
+
+/* ═══ Ô TÌM KIẾM cùng hàng với Bộ dữ liệu ═══ */
+.pf-dataset-search {
+    flex: 1 1 100%;
+    min-width: 0;
+    position: relative;
+}
+.pf-dataset-search i.fa-search {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-3);
+    font-size: .78rem;
+    pointer-events: none;
+}
+.pf-dataset-search input {
+    width: 100%;
+    padding: clamp(.32rem, .55vh, .45rem) 2rem clamp(.32rem, .55vh, .45rem) 2rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: clamp(.72rem, .85vw, .82rem);
+    font-family: inherit;
+    outline: none;
+    transition: .15s;
+}
+.pf-dataset-search input:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+.pf-dataset-search .pf-search-clear {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    background: var(--surface-2);
+    color: var(--text-2);
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: .7rem;
+}
+.pf-dataset-search .pf-search-clear.show { display: flex; }
+
+/* Từ 600px: search cùng hàng với select dataset */
+@media (min-width: 600px) {
+    .pf-dataset-search {
+        flex: 1 1 auto;
+        max-width: 45%;
+    }
 }
 @media (max-width: 500px) {
     .pf-dataset-label {
@@ -1296,8 +1363,9 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
     .pf-brand-sub{display:none}
     .pf-brand-title{font-size:.72rem}
     .pf-filters{padding:.3rem .75rem .25rem}
-    .pf-search-wrap{margin-bottom:.3rem}
-    .pf-search-wrap input{padding:.28rem 2rem;font-size:.72rem}
+    .pf-dataset-row{padding:.3rem .5rem;gap:.4rem;margin-top:.3rem}
+    .pf-dataset-search input{padding:.28rem 2rem;font-size:.72rem}
+    .pf-dataset-select{padding:.28rem 1.8rem .28rem .6rem;font-size:.72rem}
     .pf-filter-row{gap:.4rem}
     .pf-chip{padding:.2rem .5rem;font-size:.68rem}
     .pf-quick-nav{margin-top:.25rem}
@@ -1356,6 +1424,8 @@ body.practice-full-open .demo-banner,body.practice-full-open .expiry-banner{disp
 .voice-reset:hover{background:var(--danger-light);color:var(--danger);border-color:var(--danger)}
 [data-theme="dark"] .voice-slider{background:var(--surface-2)}
 """
+
+
 def build_ui_html():
     return r"""
 <div class="loading-screen" id="loadingScreen"><i class="fas fa-spinner"></i><div>Đang tải...</div></div>
@@ -1475,10 +1545,8 @@ def build_ui_html():
 <button class="pf-close" id="pfClose" aria-label="Đóng"><i class="fas fa-times"></i></button>
 </div>
 <div class="pf-filters">
-<div class="pf-search-wrap"><i class="fas fa-search"></i>
-<input type="text" id="pfSearchInput" placeholder="Tìm kiếm..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-<button class="pf-search-clear" id="pfClearSearchBtn" aria-label="Xóa"><i class="fas fa-times"></i></button>
-</div>
+
+<!-- ═══ HSK + CHỦ ĐỀ ═══ -->
 <div class="pf-filter-row">
 <div class="pf-chip" id="pfHskChip"><span class="pf-chip-label">HSK</span><span class="pf-chip-value" id="pfHskValue">Tất cả</span><i class="fas fa-chevron-down pf-chip-arrow"></i>
 <select id="pfHskFilter"><option value="">Tất cả</option><option value="HSK1">HSK1</option><option value="HSK2">HSK2</option><option value="HSK3">HSK3</option><option value="HSK4">HSK4</option><option value="HSK5">HSK5</option><option value="HSK6">HSK6</option></select>
@@ -1487,10 +1555,19 @@ def build_ui_html():
 <select id="pfSubjectFilter"><option value="">Tất cả chủ đề</option></select>
 </div>
 </div>
+
+<!-- ═══ BỘ DỮ LIỆU + TÌM KIẾM (CÙNG HÀNG trên ≥600px) ═══ -->
 <div class="pf-dataset-row" id="pfDatasetRow">
     <span class="pf-dataset-label"><i class="fas fa-layer-group"></i> Bộ dữ liệu</span>
     <select class="pf-dataset-select" id="pfDatasetSelect"></select>
+
+    <div class="pf-dataset-search">
+        <i class="fas fa-search"></i>
+        <input type="text" id="pfSearchInput" placeholder="Tìm kiếm..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button class="pf-search-clear" id="pfClearSearchBtn" aria-label="Xóa"><i class="fas fa-times"></i></button>
+    </div>
 </div>
+
 <div class="pf-quick-nav"><span class="pf-quick-nav-label">Câu:</span>
 <select class="pf-quick-nav-select" id="pfQuickNav"><option value="">-- Chọn câu --</option></select>
 </div>
@@ -1624,6 +1701,8 @@ def build_ui_html():
     </div>
 </div>
 """
+
+
 def build_ui_js():
     return r"""
 var filtered = [];
@@ -1710,6 +1789,7 @@ function initDatasetSelector() {
     var canAccess = canAccessChuyenNganh();
 
     // Render sub-buttons dạng PILL NGANG (có khoá nhỏ nếu không đủ quyền)
+    // Mỗi ngành có --ds-color riêng → viền + nền + shadow cùng tông màu
     var subGrid = $('dsSubGrid');
     if (subGrid) {
         var subHtml = '';
@@ -3276,12 +3356,11 @@ var pfCurrentAnswer = '';
 var pfCurrentVi = '';
 var pfCurrentPinyin = '';
 var pfHintEnabled = false;
-var pfRandomMode = false;  // 🎲 khi true → nút Next nhảy câu ngẫu nhiên
+var pfRandomMode = false;
 
 window.openPracticeFull = function(stt, evt) {
     if (evt) { evt.stopPropagation(); if (evt.preventDefault) evt.preventDefault(); }
     if (isExpiredTier()) { showLimitMessage(); return; }
-    // ✅ Build dataset selector trước khi mở
     if (typeof pfBuildDatasetSelect === 'function') pfBuildDatasetSelect();
     pfBuildFilterOptions();
     pfBuildQuickNav();
@@ -3376,9 +3455,6 @@ function loadPracticeFull(stt) {
     }, 200);
 }
 
-/* ============================================================ */
-/* 🎲 NÚT NEXT — hỗ trợ cả tuần tự và ngẫu nhiên (toggle)       */
-/* ============================================================ */
 window.pfNext = function() {
     if (!pfCurrentStt || filtered.length === 0) return;
 
@@ -3388,7 +3464,6 @@ window.pfNext = function() {
     }
     if (idx === -1) return;
 
-    // 🎲 Chế độ ngẫu nhiên — nhảy câu bất kỳ khác câu hiện tại
     if (pfRandomMode && filtered.length > 1) {
         var newIdx = idx;
         var tries = 0;
@@ -3398,7 +3473,6 @@ window.pfNext = function() {
         }
         if (newIdx === idx) newIdx = (idx + 1) % filtered.length;
 
-        // Animation rung lắc xúc xắc
         var rndBtn = $('pfRandomToggleBtn');
         if (rndBtn) {
             var icon = rndBtn.querySelector('i');
@@ -3412,14 +3486,10 @@ window.pfNext = function() {
         return;
     }
 
-    // 📖 Chế độ tuần tự bình thường
     if (idx >= filtered.length - 1) return;
     loadPracticeFull(filtered[idx + 1].stt);
 };
 
-/* ============================================================ */
-/* 🎲 TOGGLE RANDOM — khi bật, nút Next nhảy câu ngẫu nhiên     */
-/* ============================================================ */
 window.pfToggleRandom = function() {
     pfRandomMode = !pfRandomMode;
     var btn = $('pfRandomToggleBtn');
@@ -4054,7 +4124,6 @@ function _quickSpeakNormal(token) {
 }
 
 function initPracticeFull() {
-    // 🎲 Khôi phục trạng thái random mode từ lần trước
     try {
         var savedRandom = localStorage.getItem('pfRandomMode') === '1';
         if (savedRandom) {
@@ -4067,7 +4136,6 @@ function initPracticeFull() {
         }
     } catch(e) {}
 
-    // Bind toggle Random
     var randomToggleBtn = $('pfRandomToggleBtn');
     if (randomToggleBtn) {
         randomToggleBtn.addEventListener('click', function(e) {
@@ -4129,7 +4197,7 @@ function initPracticeFull() {
         if (isTyping) return;
         if (e.key === 'ArrowRight' && e.ctrlKey) pfNext();
         if (e.key === 'ArrowLeft' && e.ctrlKey) pfPrev();
-        if (e.key === 'r' || e.key === 'R') pfToggleRandom();  // 🎲 bật/tắt random mode
+        if (e.key === 'r' || e.key === 'R') pfToggleRandom();
     });
     var modal = $('practiceFullModal');
     var touchStartX = 0;
@@ -4177,7 +4245,6 @@ function pfBuildDatasetSelect() {
     var row = $('pfDatasetRow');
     if (!sel || typeof DATASET_REGISTRY === 'undefined') return;
 
-    // ✅ Quyền: chỉ tier 'active' mới mở được chuyên ngành. Admin tự động full.
     var canAccessAll = canAccessChuyenNganh();
 
     var html = '';
@@ -4204,7 +4271,6 @@ function pfBuildDatasetSelect() {
     var current = (typeof CURRENT_DATASET !== 'undefined') ? CURRENT_DATASET : 'tonghop';
     sel.value = current;
 
-    // Nếu dataset hiện tại là chuyên ngành mà user không có quyền → về tonghop
     if (current !== 'tonghop' && !canAccessAll) {
         sel.value = 'tonghop';
     }
@@ -4215,7 +4281,6 @@ function pfBuildDatasetSelect() {
     }
 }
 
-// Bind change event (delegation, an toàn khi select được rebuild)
 document.addEventListener('change', function(e) {
     if (!e.target || e.target.id !== 'pfDatasetSelect') return;
 
@@ -4224,21 +4289,18 @@ document.addEventListener('change', function(e) {
     var opt = sel.options[sel.selectedIndex];
     var currentDataset = (typeof CURRENT_DATASET !== 'undefined') ? CURRENT_DATASET : 'tonghop';
 
-    // ✅ Option bị khoá → reset + thông báo
     if (opt && opt.dataset.locked === '1') {
         sel.value = currentDataset;
         showPracticeFullLockMessage();
         return;
     }
 
-    // Guard lần 2 (double check)
     if (val !== 'tonghop' && !canAccessChuyenNganh()) {
         sel.value = currentDataset;
         showPracticeFullLockMessage();
         return;
     }
 
-    // Chuyển dataset
     var ok = (typeof window.__switchRawData === 'function')
              ? window.__switchRawData(val)
              : false;
@@ -4247,7 +4309,6 @@ document.addEventListener('change', function(e) {
         return;
     }
 
-    // Reset filter
     state = { search:'', hsk:'', subject:'' };
     if ($('pfSearchInput')) $('pfSearchInput').value = '';
     if ($('pfHskFilter')) $('pfHskFilter').value = '';
@@ -4256,24 +4317,20 @@ document.addEventListener('change', function(e) {
     if ($('hskFilter')) $('hskFilter').value = '';
     if ($('subjectFilter')) $('subjectFilter').value = '';
 
-    // Rebuild options filter trong PF
     if (typeof pfBuildFilterOptions === 'function') pfBuildFilterOptions();
 
-    // Apply lại filter + render lại list
     if (typeof pfApplyFilter === 'function') {
         pfApplyFilter();
     } else if (typeof applyFilter === 'function') {
         applyFilter();
     }
 
-    // Nếu còn câu → load câu đầu
     if (typeof filtered !== 'undefined' && filtered.length > 0) {
         if (typeof loadPracticeFull === 'function') {
             loadPracticeFull(filtered[0].stt);
         }
     }
 
-    // Refresh select để đồng bộ
     pfBuildDatasetSelect();
 });
 
